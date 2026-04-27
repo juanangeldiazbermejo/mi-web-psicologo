@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi panel de vida</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f6f3;
+    --bg2: #ffffff;
+    --bg3: #f0ede8;
+    --text: #1a1917;
+    --text2: #6b6860;
+    --text3: #a8a49e;
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.14);
+    --accent: #2d6a4f;
+    --accent2: #e8f5e9;
+    --sidebar-w: 220px;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* LOGIN */
+  #login-screen {
+    position: fixed; inset: 0; background: #1a1917;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000; flex-direction: column; gap: 24px;
+  }
+  #login-screen h1 { font-family: 'Lora', serif; color: #f7f6f3; font-size: 28px; font-weight: 400; }
+  #login-screen p { color: #6b6860; font-size: 14px; }
+  #pin-display { display: flex; gap: 12px; margin: 8px 0; }
+  .pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid #444; background: transparent; transition: background .15s; }
+  .pin-dot.filled { background: #f7f6f3; border-color: #f7f6f3; }
+  #pin-pad { display: grid; grid-template-columns: repeat(3, 64px); gap: 10px; }
+  .pin-btn {
+    width: 64px; height: 64px; border-radius: 50%; border: 1px solid #333;
+    background: transparent; color: #f7f6f3; font-size: 20px; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: background .1s;
+  }
+  .pin-btn:hover { background: #2a2a27; }
+  .pin-btn:active { background: #3a3a37; }
+  #pin-error { color: #e57373; font-size: 13px; min-height: 20px; }
+
+  /* APP */
+  #app { display: none; min-height: 100vh; }
+  .layout { display: flex; min-height: 100vh; }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: var(--sidebar-w); background: var(--bg2); border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh;
+    z-index: 100; transition: transform .25s;
+  }
+  .sidebar-header { padding: 24px 20px 16px; border-bottom: 1px solid var(--border); }
+  .sidebar-logo { font-family: 'Lora', serif; font-size: 18px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  .sidebar-subtitle { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .sidebar-nav { flex: 1; padding: 12px 10px; overflow-y: auto; }
+  .nav-section { font-size: 10px; font-weight: 500; letter-spacing: .08em; color: var(--text3); text-transform: uppercase; padding: 8px 10px 4px; }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--radius-sm);
+    cursor: pointer; font-size: 13px; color: var(--text2); transition: all .12s; margin-bottom: 1px;
+  }
+  .nav-item:hover { background: var(--bg3); color: var(--text); }
+  .nav-item.active { background: var(--accent2); color: var(--accent); font-weight: 500; }
+  .nav-icon { font-size: 15px; width: 20px; text-align: center; }
+  .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .user-pill { display: flex; align-items: center; gap: 10px; }
+  .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 500; }
+  .user-name { font-size: 13px; font-weight: 500; }
+  .user-sub { font-size: 11px; color: var(--text3); }
+  .logout-btn { margin-left: auto; background: none; border: none; cursor: pointer; color: var(--text3); font-size: 18px; }
+
+  /* MAIN */
+  .main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; }
+  .topbar {
+    height: 52px; background: var(--bg2); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; padding: 0 28px; gap: 12px; position: sticky; top: 0; z-index: 50;
+  }
+  .topbar-title { font-family: 'Lora', serif; font-size: 17px; font-weight: 400; flex: 1; }
+  .topbar-actions { display: flex; gap: 8px; }
+  .btn { padding: 7px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border2); background: var(--bg2); font-size: 13px; font-family: 'DM Sans', sans-serif; cursor: pointer; color: var(--text); transition: all .12s; }
+  .btn:hover { background: var(--bg3); }
+  .btn-primary { background: var(--accent); color: white; border-color: var(--accent); }
+  .btn-primary:hover { background: #235c42; }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; font-size: 20px; color: var(--text2); }
+
+  /* PAGE CONTENT */
+  .page { display: none; padding: 28px; animation: fadeIn .2s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  /* HOME */
+  .home-greeting { font-family: 'Lora', serif; font-size: 26px; font-weight: 400; margin-bottom: 4px; }
+  .home-date { font-size: 13px; color: var(--text3); margin-bottom: 28px; }
+  .home-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .home-card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 18px; cursor: pointer; transition: all .15s;
+  }
+  .home-card:hover { border-color: var(--border2); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+  .home-card-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+  .home-card-title { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+  .home-card-meta { font-size: 12px; color: var(--text3); }
+
+  /* SECTION HEADER */
+  .section-header { margin-bottom: 20px; }
+  .section-title { font-family: 'Lora', serif; font-size: 22px; font-weight: 400; margin-bottom: 4px; }
+  .section-sub { font-size: 13px; color: var(--text2); }
+
+  /* KANBAN */
+  .kanban-board { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .kanban-col { background: var(--bg3); border-radius: var(--radius); padding: 12px; min-height: 300px; }
+  .kanban-col-header { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+  .k-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .kanban-col-title { font-size: 12px; font-weight: 500; color: var(--text2); }
+  .kanban-col-count { font-size: 11px; color: var(--text3); margin-left: auto; background: var(--bg2); padding: 1px 6px; border-radius: 10px; }
+  .k-card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 10px 12px; margin-bottom: 8px; cursor: pointer; transition: all .12s;
+  }
+  .k-card:hover { border-color: var(--border2); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .k-card-title { font-size: 13px; line-height: 1.4; margin-bottom: 6px; }
+  .k-tag { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 4px; font-weight: 500; }
+  .k-date { font-size: 10px; color: var(--text3); margin-top: 6px; }
+  .k-add { width: 100%; padding: 7px; background: none; border: 1px dashed var(--border2); border-radius: var(--radius-sm); font-size: 12px; color: var(--text3); cursor: pointer; transition: all .12s; font-family: 'DM Sans', sans-serif; }
+  .k-add:hover { background: var(--bg2); color: var(--text2); }
+
+  /* GRID ITEMS (lecturas, viajes, peliculas...) */
+  .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .item-card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px; cursor: pointer; transition: all .15s; position: relative;
+  }
+  .item-card:hover { border-color: var(--border2); box-shadow: 0 3px 10px rgba(0,0,0,0.05); }
+  .item-card-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; line-height: 1.3; }
+  .item-card-sub { font-size: 12px; color: var(--text2); line-height: 1.4; }
+  .item-card-meta { font-size: 11px; color: var(--text3); margin-top: 8px; }
+  .status-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 500; margin-top: 8px; }
+  .stars { color: #f4a62a; font-size: 12px; margin-top: 6px; }
+  .add-card {
+    background: none; border: 1.5px dashed var(--border2); border-radius: var(--radius);
+    padding: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    gap: 6px; font-size: 13px; color: var(--text3); transition: all .15s; font-family: 'DM Sans', sans-serif;
+    min-height: 80px;
+  }
+  .add-card:hover { background: var(--bg2); color: var(--text2); border-color: var(--border2); }
+
+  /* PROYECTO DE VIDA */
+  .vida-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .vida-block { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+  .vida-block-title { font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--text3); margin-bottom: 14px; }
+  .vida-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .vida-item:last-child { border-bottom: none; }
+  .vida-item-icon { font-size: 16px; margin-top: 1px; }
+  .vida-item-text { font-size: 13px; line-height: 1.5; }
+  .vida-item-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .progress-bar { height: 4px; background: var(--bg3); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; }
+
+  /* REVISIÓN MENSUAL */
+  .review-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; max-width: 600px; }
+  .review-month { font-family: 'Lora', serif; font-size: 20px; margin-bottom: 16px; }
+  .review-area { margin-bottom: 16px; }
+  .review-area-label { font-size: 12px; font-weight: 500; color: var(--text3); margin-bottom: 4px; }
+  .review-textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--bg); resize: vertical; min-height: 70px; outline: none; transition: border-color .12s; }
+  .review-textarea:focus { border-color: var(--accent); }
+
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 500; align-items: center; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--bg2); border-radius: var(--radius); padding: 28px; width: 90%; max-width: 480px; max-height: 80vh; overflow-y: auto; }
+  .modal-title { font-family: 'Lora', serif; font-size: 20px; margin-bottom: 20px; }
+  .form-group { margin-bottom: 14px; }
+  .form-label { font-size: 12px; font-weight: 500; color: var(--text2); margin-bottom: 5px; display: block; }
+  .form-input { width: 100%; padding: 9px 12px; border: 1px solid var(--border2); border-radius: var(--radius-sm); font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--bg); outline: none; transition: border-color .12s; }
+  .form-input:focus { border-color: var(--accent); }
+  .form-select { width: 100%; padding: 9px 12px; border: 1px solid var(--border2); border-radius: var(--radius-sm); font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--bg); outline: none; }
+  .modal-actions { display: flex; gap: 8px; margin-top: 20px; justify-content: flex-end; }
+
+  /* MOBILE */
+  .mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 99; }
+  @media (max-width: 768px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+    .main { margin-left: 0; }
+    .hamburger { display: block; }
+    .mobile-overlay.open { display: block; }
+    .kanban-board { grid-template-columns: 1fr; }
+    .vida-grid { grid-template-columns: 1fr; }
+    .page { padding: 20px 16px; }
+    .topbar { padding: 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <h1>🏠 Mi panel</h1>
+  <p>Introduce tu PIN para acceder</p>
+  <div id="pin-display">
+    <div class="pin-dot" id="d0"></div>
+    <div class="pin-dot" id="d1"></div>
+    <div class="pin-dot" id="d2"></div>
+    <div class="pin-dot" id="d3"></div>
+  </div>
+  <div id="pin-error"></div>
+  <div id="pin-pad">
+    <button class="pin-btn" onclick="pinInput('1')">1</button>
+    <button class="pin-btn" onclick="pinInput('2')">2</button>
+    <button class="pin-btn" onclick="pinInput('3')">3</button>
+    <button class="pin-btn" onclick="pinInput('4')">4</button>
+    <button class="pin-btn" onclick="pinInput('5')">5</button>
+    <button class="pin-btn" onclick="pinInput('6')">6</button>
+    <button class="pin-btn" onclick="pinInput('7')">7</button>
+    <button class="pin-btn" onclick="pinInput('8')">8</button>
+    <button class="pin-btn" onclick="pinInput('9')">9</button>
+    <button class="pin-btn" onclick="pinInput('')" style="font-size:14px;color:#6b6860">borrar</button>
+    <button class="pin-btn" onclick="pinInput('0')">0</button>
+    <button class="pin-btn" onclick="pinClear()" style="font-size:18px">⌫</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="mobile-overlay" id="overlay" onclick="closeSidebar()"></div>
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">🏠 Mi panel</div>
+        <div class="sidebar-subtitle">Panel de vida personal</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Principal</div>
+        <div class="nav-item active" onclick="nav('home')"><span class="nav-icon">🏡</span> Inicio</div>
+        <div class="nav-item" onclick="nav('vida')"><span class="nav-icon">🧭</span> Proyecto de vida</div>
+        <div class="nav-section">Contenido</div>
+        <div class="nav-item" onclick="nav('blog')"><span class="nav-icon">✍️</span> Blog</div>
+        <div class="nav-item" onclick="nav('lecturas')"><span class="nav-icon">📚</span> Lecturas</div>
+        <div class="nav-section">Personal</div>
+        <div class="nav-item" onclick="nav('familia')"><span class="nav-icon">👨‍👩‍👧‍👦</span> Familia</div>
+        <div class="nav-item" onclick="nav('viajes')"><span class="nav-icon">✈️</span> Viajes</div>
+        <div class="nav-item" onclick="nav('pelis')"><span class="nav-icon">🎬</span> Películas y series</div>
+        <div class="nav-item" onclick="nav('ocio')"><span class="nav-icon">🎯</span> Ocio</div>
+        <div class="nav-item" onclick="nav('empleo')"><span class="nav-icon">💼</span> Empleo</div>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-pill">
+          <div class="user-avatar">JD</div>
+          <div>
+            <div class="user-name">Juanan</div>
+            <div class="user-sub">Panel privado</div>
+          </div>
+          <button class="logout-btn" onclick="logout()" title="Salir">↩</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <div class="topbar">
+        <button class="hamburger" onclick="toggleSidebar()">☰</button>
+        <div class="topbar-title" id="topbar-title">Inicio</div>
+        <div class="topbar-actions" id="topbar-actions"></div>
+      </div>
+
+      <!-- HOME -->
+      <div class="page active" id="page-home">
+        <div class="home-greeting" id="greeting">Hola, Juanan</div>
+        <div class="home-date" id="today-date"></div>
+        <div class="home-grid">
+          <div class="home-card" onclick="nav('vida')"><span class="home-card-icon">🧭</span><div class="home-card-title">Proyecto de vida</div><div class="home-card-meta">Metas y valores</div></div>
+          <div class="home-card" onclick="nav('blog')"><span class="home-card-icon">✍️</span><div class="home-card-title">Blog</div><div class="home-card-meta" id="blog-count">— posts activos</div></div>
+          <div class="home-card" onclick="nav('lecturas')"><span class="home-card-icon">📚</span><div class="home-card-title">Lecturas</div><div class="home-card-meta" id="read-count">— libros</div></div>
+          <div class="home-card" onclick="nav('familia')"><span class="home-card-icon">👨‍👩‍👧‍👦</span><div class="home-card-title">Familia</div><div class="home-card-meta">Díaz Castillo</div></div>
+          <div class="home-card" onclick="nav('viajes')"><span class="home-card-icon">✈️</span><div class="home-card-title">Viajes</div><div class="home-card-meta" id="viajes-count">— destinos</div></div>
+          <div class="home-card" onclick="nav('pelis')"><span class="home-card-icon">🎬</span><div class="home-card-title">Películas y series</div><div class="home-card-meta" id="pelis-count">— en watchlist</div></div>
+          <div class="home-card" onclick="nav('ocio')"><span class="home-card-icon">🎯</span><div class="home-card-title">Ocio</div><div class="home-card-meta" id="ocio-count">— ideas</div></div>
+          <div class="home-card" onclick="nav('empleo')"><span class="home-card-icon">💼</span><div class="home-card-title">Empleo</div><div class="home-card-meta" id="empleo-count">— activas</div></div>
+        </div>
+      </div>
+
+      <!-- PROYECTO DE VIDA -->
+      <div class="page" id="page-vida">
+        <div class="section-header"><div class="section-title">🧭 Proyecto de vida</div><div class="section-sub">Tu dirección, lo que importa de verdad</div></div>
+        <div class="vida-grid">
+          <div class="vida-block">
+            <div class="vida-block-title">Mis valores</div>
+            <div id="valores-list"></div>
+            <button class="k-add" style="margin-top:10px" onclick="openModal('valor')">+ Añadir valor</button>
+          </div>
+          <div class="vida-block">
+            <div class="vida-block-title">Metas este año</div>
+            <div id="metas-list"></div>
+            <button class="k-add" style="margin-top:10px" onclick="openModal('meta')">+ Añadir meta</button>
+          </div>
+          <div class="vida-block" style="grid-column:1/-1">
+            <div class="vida-block-title">Revisión mensual — <span id="review-mes"></span></div>
+            <div class="review-card" style="border:none;padding:0;max-width:100%">
+              <div class="review-area"><div class="review-area-label">¿Qué ha ido bien este mes?</div><textarea class="review-textarea" id="rev-bien" placeholder="Escribe aquí..."></textarea></div>
+              <div class="review-area"><div class="review-area-label">¿Qué mejoraría?</div><textarea class="review-textarea" id="rev-mejora" placeholder="Escribe aquí..."></textarea></div>
+              <div class="review-area"><div class="review-area-label">Intención para el próximo mes</div><textarea class="review-textarea" id="rev-intencion" placeholder="Escribe aquí..."></textarea></div>
+              <button class="btn btn-primary" onclick="saveReview()">Guardar revisión</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOG -->
+      <div class="page" id="page-blog">
+        <div class="section-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+          <div><div class="section-title">✍️ Blog</div><div class="section-sub">Tu pipeline de contenido</div></div>
+          <button class="btn btn-primary" onclick="openModal('post')">+ Nueva idea</button>
+        </div>
+        <div class="kanban-board" id="kanban-board"></div>
+      </div>
+
+      <!-- LECTURAS -->
+      <div class="page" id="page-lecturas">
+        <div class="section-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+          <div><div class="section-title">📚 Lecturas</div><div class="section-sub">Tu biblioteca personal</div></div>
+          <button class="btn btn-primary" onclick="openModal('libro')">+ Añadir libro</button>
+        </div>
+        <div class="items-grid" id="lecturas-grid"></div>
+      </div>
+
+      <!-- FAMILIA -->
+      <div class="page" id="page-familia">
+        <div class="section-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+          <div><div class="section-title">👨‍👩‍👧‍👦 Familia</div><div class="section-sub">Planes y momentos Díaz Castillo</div></div>
+          <button class="btn btn-primary" onclick="openModal('plan')">+ Añadir plan</button>
+        </div>
+        <div class="items-grid" id="familia-grid"></div>
+      </div>
+
+      <!-- VIAJES -->
+      <div class="page" id="page-viajes">
+        <div class="section-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+          <div><div class="section-title">✈️ Viajes</div><div class="section-sub">Ideas, planes y recuerdos</div></div>
+          <button class="btn btn-primary" onclick="openModal('viaje')">+ Añadir viaje</button>
+        </div>
+        <div class="items-grid" id="viajes-grid"></div>
+      </div>
+
+      <!-- PELIS -->
+      <div class="page" id="page-pelis">
+        <div class="section-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+          <div><div class="section-title">🎬 Películas y series</div><div class="section-sub">Tu watchlist personal</div></div>
+          <button class="btn btn-primary" onclick="openModal('peli')">+ Añadir</button>
+        </div>
+        <div class="items-grid" id="pelis-grid"></div>
+      </div>
+
+      <!-- OCIO -->
+      <div class="page" id="page-ocio">
+        <div class="section-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+          <div><div class="section-title">🎯 Ocio</div><div class="section-sub">Hobbies, planes y cosas por probar</div></div>
+          <button class="btn btn-primary" onclick="openModal('ocio')">+ Añadir idea</button>
+        </div>
+        <div class="items-grid" id="ocio-grid"></div>
+      </div>
+
+      <!-- EMPLEO -->
+      <div class="page" id="page-empleo">
+        <div class="section-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+          <div><div class="section-title">💼 Empleo</div><div class="section-sub">Oposiciones y oportunidades</div></div>
+          <button class="btn btn-primary" onclick="openModal('empleo')">+ Añadir convocatoria</button>
+        </div>
+        <div class="items-grid" id="empleo-grid"></div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-title" id="modal-title">Añadir</div>
+    <div id="modal-body"></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveModal()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const PIN = '1234';
+let pinVal = '';
+let currentModal = '';
+
+// PIN
+function pinInput(n) {
+  if (n === '') return;
+  if (pinVal.length >= 4) return;
+  pinVal += n;
+  updateDots();
+  if (pinVal.length === 4) checkPin();
+}
+function pinClear() { pinVal = pinVal.slice(0,-1); updateDots(); }
+function updateDots() {
+  for(let i=0;i<4;i++) document.getElementById('d'+i).classList.toggle('filled', i < pinVal.length);
+}
+function checkPin() {
+  if (pinVal === PIN) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    initApp();
+  } else {
+    document.getElementById('pin-error').textContent = 'PIN incorrecto, inténtalo de nuevo';
+    pinVal = '';
+    updateDots();
+    setTimeout(() => document.getElementById('pin-error').textContent = '', 2000);
+  }
+}
+function logout() {
+  pinVal = '';
+  updateDots();
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+}
+
+// DATA
+const DB_KEY = 'panel_data';
+function loadDB() {
+  try { return JSON.parse(localStorage.getItem(DB_KEY)) || defaultData(); } catch(e) { return defaultData(); }
+}
+function saveDB(db) { localStorage.setItem(DB_KEY, JSON.stringify(db)); }
+function defaultData() {
+  return {
+    posts: [
+      {id:1,title:'Por qué leo sobre psicología',cat:'Psicología',estado:'Ideas',fecha:'Abr 2025'},
+      {id:2,title:'Organizar la vida con dos hijos',cat:'Personal',estado:'Ideas',fecha:'Abr 2025'},
+      {id:3,title:'Herramientas digitales que uso',cat:'Tecnología',estado:'Desarrollando',fecha:'Abr 2025'},
+      {id:4,title:'Mi primer post del blog',cat:'Personal',estado:'Publicado',fecha:'Mar 2025'},
+    ],
+    libros: [
+      {id:1,titulo:'El hombre en busca de sentido',autor:'Viktor Frankl',estado:'Leído',nota:'Una de las mejores lecturas'},
+      {id:2,titulo:'Pensar rápido, pensar despacio',autor:'Kahneman',estado:'Leyendo',nota:''},
+      {id:3,titulo:'Hábitos atómicos',autor:'James Clear',estado:'Por leer',nota:''},
+    ],
+    viajes: [
+      {id:1,nombre:'Murcia — Semana Santa',tipo:'Próximo',fecha:'Abr 2025',nota:'Ver la procesión Coloraos'},
+      {id:2,nombre:'Torralba de Calatrava',tipo:'Próximo',fecha:'Abr 2025',nota:'Estancia familiar'},
+    ],
+    pelis: [
+      {id:1,titulo:'The Bear',tipo:'Serie',estado:'Viendo',rating:5},
+      {id:2,titulo:'Dune: Parte 2',tipo:'Película',estado:'Pendiente',rating:0},
+      {id:3,titulo:'Succession',tipo:'Serie',estado:'Vista',rating:5},
+    ],
+    familia: [
+      {id:1,titulo:'Excursión a la montaña',fecha:'Mayo 2025',nota:'Con los niños, llevar mochila pequeña'},
+      {id:2,titulo:'Cumpleaños de los niños',fecha:'Ver fechas',nota:'Organizar celebración'},
+    ],
+    ocio: [
+      {id:1,titulo:'Aprender algo de fotografía',tipo:'Por probar',nota:''},
+      {id:2,titulo:'Ruta en bici por la huerta',tipo:'Plan',nota:'Con la familia'},
+    ],
+    empleo: [
+      {id:1,titulo:'Convocatoria GVA — Administración',estado:'Revisando',fecha:'2025',nota:''},
+    ],
+    valores: ['Familia', 'Curiosidad', 'Autenticidad', 'Presencia'],
+    metas: [
+      {texto:'Publicar 12 posts en el blog',progreso:8},
+      {texto:'Leer 15 libros',progreso:40},
+      {texto:'Viaje familiar en verano',progreso:20},
+    ],
+    review: {bien:'',mejora:'',intencion:''}
+  };
+}
+
+let db = loadDB();
+
+// NAV
+const pages = ['home','vida','blog','lecturas','familia','viajes','pelis','ocio','empleo'];
+const titles = {home:'Inicio',vida:'Proyecto de vida',blog:'Blog',lecturas:'Lecturas',familia:'Familia',viajes:'Viajes',pelis:'Películas y series',ocio:'Ocio',empleo:'Empleo'};
+
+function nav(id) {
+  pages.forEach(p => {
+    document.getElementById('page-'+p).classList.remove('active');
+    document.querySelectorAll('.nav-item').forEach(n => {
+      if (n.textContent.trim().includes(titles[p]?.split(' ')[0])) n.classList.remove('active');
+    });
+  });
+  document.getElementById('page-'+id).classList.add('active');
+  document.getElementById('topbar-title').textContent = titles[id];
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') === `nav('${id}')`) n.classList.add('active');
+  });
+  renderPage(id);
+  closeSidebar();
+}
+
+function renderPage(id) {
+  if (id === 'home') renderHome();
+  else if (id === 'blog') renderKanban();
+  else if (id === 'lecturas') renderGrid('lecturas-grid', db.libros, renderLibro);
+  else if (id === 'familia') renderGrid('familia-grid', db.familia, renderFamilia);
+  else if (id === 'viajes') renderGrid('viajes-grid', db.viajes, renderViaje);
+  else if (id === 'pelis') renderGrid('pelis-grid', db.pelis, renderPeli);
+  else if (id === 'ocio') renderGrid('ocio-grid', db.ocio, renderOcio);
+  else if (id === 'empleo') renderGrid('empleo-grid', db.empleo, renderEmpleo);
+  else if (id === 'vida') renderVida();
+}
+
+function renderHome() {
+  const now = new Date();
+  const dias = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const h = now.getHours();
+  const saludo = h < 13 ? 'Buenos días' : h < 20 ? 'Buenas tardes' : 'Buenas noches';
+  document.getElementById('greeting').textContent = saludo + ', Juanan';
+  document.getElementById('today-date').textContent = `${dias[now.getDay()]}, ${now.getDate()} de ${meses[now.getMonth()]} de ${now.getFullYear()}`;
+  const activos = db.posts.filter(p => p.estado !== 'Publicado').length;
+  document.getElementById('blog-count').textContent = activos + ' posts activos';
+  document.getElementById('read-count').textContent = db.libros.length + ' libros';
+  document.getElementById('viajes-count').textContent = db.viajes.length + ' destinos';
+  document.getElementById('pelis-count').textContent = db.pelis.filter(p=>p.estado==='Pendiente').length + ' en watchlist';
+  document.getElementById('ocio-count').textContent = db.ocio.length + ' ideas';
+  document.getElementById('empleo-count').textContent = db.empleo.length + ' activas';
+}
+
+// KANBAN
+const estados = ['Ideas','Desarrollando','Borrador','Revisión','Publicado'];
+const dotColors = {'Ideas':'#aaa','Desarrollando':'#378ADD','Borrador':'#EF9F27','Revisión':'#7F77DD','Publicado':'#1D9E75'};
+const catColors = {'Psicología':'#E1F5EE','Personal':'#FBEAF0','Tecnología':'#E6F1FB','IA':'#EEEDFE','General':'#F1EFE8'};
+const catText = {'Psicología':'#0F6E56','Personal':'#993556','Tecnología':'#185FA5','IA':'#534AB7','General':'#5F5E5A'};
+
+function renderKanban() {
+  const board = document.getElementById('kanban-board');
+  board.innerHTML = '';
+  estados.forEach(est => {
+    const posts = db.posts.filter(p => p.estado === est);
+    const col = document.createElement('div');
+    col.className = 'kanban-col';
+    col.innerHTML = `<div class="kanban-col-header"><span class="k-dot" style="background:${dotColors[est]}"></span><span class="kanban-col-title">${est}</span><span class="kanban-col-count">${posts.length}</span></div>`;
+    posts.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'k-card';
+      const bg = catColors[p.cat] || '#F1EFE8';
+      const tc = catText[p.cat] || '#5F5E5A';
+      card.innerHTML = `<div class="k-card-title">${p.title}</div><span class="k-tag" style="background:${bg};color:${tc}">${p.cat}</span><div class="k-date">${p.fecha}</div>`;
+      col.appendChild(card);
+    });
+    const addBtn = document.createElement('button');
+    addBtn.className = 'k-add';
+    addBtn.textContent = '+ Añadir';
+    addBtn.onclick = () => openModal('post', est);
+    col.appendChild(addBtn);
+    board.appendChild(col);
+  });
+}
+
+function renderGrid(id, items, fn) {
+  const g = document.getElementById(id);
+  g.innerHTML = '';
+  items.forEach(item => { const el = fn(item); g.appendChild(el); });
+  const add = document.createElement('button');
+  add.className = 'add-card';
+  add.innerHTML = '＋ Añadir';
+  add.onclick = () => openModal(id.split('-')[0].replace('grid','').replace('s','').replace('ia','').replace('ajes','aje').replace('mpleo','mpleo'));
+  g.appendChild(add);
+}
+
+function card(content) { const d = document.createElement('div'); d.className = 'item-card'; d.innerHTML = content; return d; }
+
+function renderLibro(l) {
+  const s = {'Leído':'background:#E1F5EE;color:#0F6E56','Leyendo':'background:#E6F1FB;color:#185FA5','Por leer':'background:#F1EFE8;color:#5F5E5A'};
+  return card(`<div class="item-card-title">${l.titulo}</div><div class="item-card-sub">${l.autor}</div>${l.nota?`<div class="item-card-meta">${l.nota}</div>`:''}<span class="status-badge" style="${s[l.estado]||''}">${l.estado}</span>`);
+}
+function renderViaje(v) {
+  const s = {'Próximo':'background:#EEEDFE;color:#534AB7','Hecho':'background:#E1F5EE;color:#0F6E56','Idea':'background:#F1EFE8;color:#5F5E5A'};
+  return card(`<div class="item-card-title">${v.nombre}</div><div class="item-card-sub">${v.fecha}</div>${v.nota?`<div class="item-card-meta">${v.nota}</div>`:''}<span class="status-badge" style="${s[v.tipo]||''}">${v.tipo}</span>`);
+}
+function renderPeli(p) {
+  const s = p.rating > 0 ? '★'.repeat(p.rating) + '☆'.repeat(5-p.rating) : '';
+  const sb = {'Viendo':'background:#E6F1FB;color:#185FA5','Pendiente':'background:#F1EFE8;color:#5F5E5A','Vista':'background:#E1F5EE;color:#0F6E56'};
+  return card(`<div class="item-card-title">${p.titulo}</div><div class="item-card-sub">${p.tipo}</div><span class="status-badge" style="${sb[p.estado]||''}">${p.estado}</span>${s?`<div class="stars">${s}</div>`:''}`);
+}
+function renderFamilia(f) {
+  return card(`<div class="item-card-title">${f.titulo}</div><div class="item-card-meta">${f.fecha}</div>${f.nota?`<div class="item-card-sub" style="margin-top:6px">${f.nota}</div>`:''}`);
+}
+function renderOcio(o) {
+  const sb = {'Por probar':'background:#FBEAF0;color:#993556','Plan':'background:#E1F5EE;color:#0F6E56','Hecho':'background:#F1EFE8;color:#5F5E5A'};
+  return card(`<div class="item-card-title">${o.titulo}</div>${o.nota?`<div class="item-card-sub">${o.nota}</div>`:''}<span class="status-badge" style="${sb[o.tipo]||''}">${o.tipo}</span>`);
+}
+function renderEmpleo(e) {
+  const sb = {'Revisando':'background:#E6F1FB;color:#185FA5','Activa':'background:#E1F5EE;color:#0F6E56','Descartada':'background:#F1EFE8;color:#5F5E5A'};
+  return card(`<div class="item-card-title">${e.titulo}</div><div class="item-card-meta">${e.fecha}</div>${e.nota?`<div class="item-card-sub">${e.nota}</div>`:''}<span class="status-badge" style="${sb[e.estado]||''}">${e.estado}</span>`);
+}
+
+// VIDA
+function renderVida() {
+  const vl = document.getElementById('valores-list');
+  vl.innerHTML = '';
+  db.valores.forEach(v => {
+    const d = document.createElement('div');
+    d.className = 'vida-item';
+    d.innerHTML = `<span class="vida-item-icon">◆</span><div><div class="vida-item-text">${v}</div></div>`;
+    vl.appendChild(d);
+  });
+  const ml = document.getElementById('metas-list');
+  ml.innerHTML = '';
+  db.metas.forEach(m => {
+    const d = document.createElement('div');
+    d.className = 'vida-item';
+    d.innerHTML = `<div style="width:100%"><div class="vida-item-text">${m.texto}</div><div class="progress-bar"><div class="progress-fill" style="width:${m.progreso}%"></div></div><div class="vida-item-sub">${m.progreso}% completado</div></div>`;
+    ml.appendChild(d);
+  });
+  const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  document.getElementById('review-mes').textContent = meses[new Date().getMonth()] + ' ' + new Date().getFullYear();
+  document.getElementById('rev-bien').value = db.review.bien;
+  document.getElementById('rev-mejora').value = db.review.mejora;
+  document.getElementById('rev-intencion').value = db.review.intencion;
+}
+
+function saveReview() {
+  db.review.bien = document.getElementById('rev-bien').value;
+  db.review.mejora = document.getElementById('rev-mejora').value;
+  db.review.intencion = document.getElementById('rev-intencion').value;
+  saveDB(db);
+  const btn = event.target;
+  btn.textContent = '✓ Guardado';
+  setTimeout(() => btn.textContent = 'Guardar revisión', 1500);
+}
+
+// MODAL
+const modalForms = {
+  post: (est) => `
+    <div class="form-group"><label class="form-label">Título de la idea</label><input class="form-input" id="m-title" placeholder="¿De qué va el post?"></div>
+    <div class="form-group"><label class="form-label">Categoría</label><select class="form-select" id="m-cat"><option>Personal</option><option>Psicología</option><option>Tecnología</option><option>IA</option><option>General</option></select></div>
+    <div class="form-group"><label class="form-label">Estado</label><select class="form-select" id="m-estado">${estados.map(e=>`<option${e===est?' selected':''}>${e}</option>`).join('')}</select></div>`,
+  libro: () => `
+    <div class="form-group"><label class="form-label">Título</label><input class="form-input" id="m-titulo" placeholder="Título del libro"></div>
+    <div class="form-group"><label class="form-label">Autor</label><input class="form-input" id="m-autor" placeholder="Nombre del autor"></div>
+    <div class="form-group"><label class="form-label">Estado</label><select class="form-select" id="m-estado"><option>Por leer</option><option>Leyendo</option><option>Leído</option></select></div>
+    <div class="form-group"><label class="form-label">Nota (opcional)</label><input class="form-input" id="m-nota" placeholder="Una frase sobre el libro"></div>`,
+  viaje: () => `
+    <div class="form-group"><label class="form-label">Destino</label><input class="form-input" id="m-nombre" placeholder="¿A dónde?"></div>
+    <div class="form-group"><label class="form-label">Cuándo</label><input class="form-input" id="m-fecha" placeholder="Mayo 2025..."></div>
+    <div class="form-group"><label class="form-label">Tipo</label><select class="form-select" id="m-tipo"><option>Idea</option><option>Próximo</option><option>Hecho</option></select></div>
+    <div class="form-group"><label class="form-label">Nota</label><input class="form-input" id="m-nota" placeholder="Algo que recordar"></div>`,
+  peli: () => `
+    <div class="form-group"><label class="form-label">Título</label><input class="form-input" id="m-titulo" placeholder="Título"></div>
+    <div class="form-group"><label class="form-label">Tipo</label><select class="form-select" id="m-tipo"><option>Película</option><option>Serie</option><option>Documental</option></select></div>
+    <div class="form-group"><label class="form-label">Estado</label><select class="form-select" id="m-estado"><option>Pendiente</option><option>Viendo</option><option>Vista</option></select></div>`,
+  plan: () => `
+    <div class="form-group"><label class="form-label">Plan</label><input class="form-input" id="m-titulo" placeholder="¿Qué plan?"></div>
+    <div class="form-group"><label class="form-label">Cuándo</label><input class="form-input" id="m-fecha" placeholder="Fecha aproximada"></div>
+    <div class="form-group"><label class="form-label">Nota</label><input class="form-input" id="m-nota" placeholder="Detalles"></div>`,
+  ocio: () => `
+    <div class="form-group"><label class="form-label">Idea o plan</label><input class="form-input" id="m-titulo" placeholder="¿Qué quieres hacer?"></div>
+    <div class="form-group"><label class="form-label">Tipo</label><select class="form-select" id="m-tipo"><option>Por probar</option><option>Plan</option><option>Hecho</option></select></div>
+    <div class="form-group"><label class="form-label">Nota</label><input class="form-input" id="m-nota" placeholder="Detalles"></div>`,
+  empleo: () => `
+    <div class="form-group"><label class="form-label">Convocatoria</label><input class="form-input" id="m-titulo" placeholder="Nombre de la plaza o convocatoria"></div>
+    <div class="form-group"><label class="form-label">Año / fecha</label><input class="form-input" id="m-fecha" placeholder="2025"></div>
+    <div class="form-group"><label class="form-label">Estado</label><select class="form-select" id="m-estado"><option>Revisando</option><option>Activa</option><option>Descartada</option></select></div>
+    <div class="form-group"><label class="form-label">Nota</label><input class="form-input" id="m-nota" placeholder="Requisitos, fechas clave..."></div>`,
+  valor: () => `<div class="form-group"><label class="form-label">Valor</label><input class="form-input" id="m-valor" placeholder="Ej: Familia, Curiosidad..."></div>`,
+  meta: () => `
+    <div class="form-group"><label class="form-label">Meta</label><input class="form-input" id="m-texto" placeholder="¿Qué quieres conseguir?"></div>
+    <div class="form-group"><label class="form-label">Progreso (%)</label><input class="form-input" id="m-progreso" type="number" min="0" max="100" value="0"></div>`,
+};
+
+const modalTitles = {post:'Nueva idea de post',libro:'Añadir libro',viaje:'Añadir viaje',peli:'Añadir película o serie',plan:'Añadir plan familiar',ocio:'Añadir idea de ocio',empleo:'Añadir convocatoria',valor:'Añadir valor',meta:'Añadir meta'};
+
+function openModal(type, extra) {
+  currentModal = type;
+  document.getElementById('modal-title').textContent = modalTitles[type] || 'Añadir';
+  document.getElementById('modal-body').innerHTML = (modalForms[type]||(() => ''))(extra);
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); currentModal = ''; }
+function closeModalOutside(e) { if(e.target === document.getElementById('modal')) closeModal(); }
+
+function g(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+function saveModal() {
+  const newId = Date.now();
+  if (currentModal === 'post') {
+    if (!g('m-title')) return;
+    db.posts.push({id:newId,title:g('m-title'),cat:g('m-cat'),estado:g('m-estado'),fecha:new Date().toLocaleDateString('es-ES',{month:'short',year:'numeric'})});
+    saveDB(db); closeModal(); renderKanban();
+  } else if (currentModal === 'libro') {
+    if (!g('m-titulo')) return;
+    db.libros.push({id:newId,titulo:g('m-titulo'),autor:g('m-autor'),estado:g('m-estado'),nota:g('m-nota')});
+    saveDB(db); closeModal(); renderGrid('lecturas-grid',db.libros,renderLibro);
+  } else if (currentModal === 'viaje') {
+    if (!g('m-nombre')) return;
+    db.viajes.push({id:newId,nombre:g('m-nombre'),fecha:g('m-fecha'),tipo:g('m-tipo'),nota:g('m-nota')});
+    saveDB(db); closeModal(); renderGrid('viajes-grid',db.viajes,renderViaje);
+  } else if (currentModal === 'peli') {
+    if (!g('m-titulo')) return;
+    db.pelis.push({id:newId,titulo:g('m-titulo'),tipo:g('m-tipo'),estado:g('m-estado'),rating:0});
+    saveDB(db); closeModal(); renderGrid('pelis-grid',db.pelis,renderPeli);
+  } else if (currentModal === 'plan') {
+    if (!g('m-titulo')) return;
+    db.familia.push({id:newId,titulo:g('m-titulo'),fecha:g('m-fecha'),nota:g('m-nota')});
+    saveDB(db); closeModal(); renderGrid('familia-grid',db.familia,renderFamilia);
+  } else if (currentModal === 'ocio') {
+    if (!g('m-titulo')) return;
+    db.ocio.push({id:newId,titulo:g('m-titulo'),tipo:g('m-tipo'),nota:g('m-nota')});
+    saveDB(db); closeModal(); renderGrid('ocio-grid',db.ocio,renderOcio);
+  } else if (currentModal === 'empleo') {
+    if (!g('m-titulo')) return;
+    db.empleo.push({id:newId,titulo:g('m-titulo'),fecha:g('m-fecha'),estado:g('m-estado'),nota:g('m-nota')});
+    saveDB(db); closeModal(); renderGrid('empleo-grid',db.empleo,renderEmpleo);
+  } else if (currentModal === 'valor') {
+    if (!g('m-valor')) return;
+    db.valores.push(g('m-valor'));
+    saveDB(db); closeModal(); renderVida();
+  } else if (currentModal === 'meta') {
+    if (!g('m-texto')) return;
+    db.metas.push({texto:g('m-texto'),progreso:parseInt(g('m-progreso'))||0});
+    saveDB(db); closeModal(); renderVida();
+  }
+  renderHome();
+}
+
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('open'); }
+function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+
+function initApp() { renderHome(); }
+</script>
+</body>
+</html>
