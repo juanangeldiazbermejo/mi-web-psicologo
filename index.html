@@ -44,12 +44,14 @@
     height: 60px;
   }
   .nav-logo {
-    font-family: 'Fraunces', serif;
-    font-size: 17px;
-    font-weight: 400;
-    color: var(--texto);
+    display: flex; align-items: center;
     text-decoration: none;
-    letter-spacing: -0.3px;
+    height: 100%;
+  }
+  .nav-logo img {
+    height: 38px;
+    width: auto;
+    display: block;
   }
   .nav-links { display: flex; gap: 1.5rem; list-style: none; }
   .nav-links a {
@@ -386,6 +388,7 @@
     .contacto-inner { grid-template-columns: 1fr; }
     .hero h1 { font-size: 2.2rem; }
     section { padding: 60px 1.25rem; }
+    .nav-logo img { height: 30px; }
   }
 </style>
 </head>
@@ -393,7 +396,9 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Juan Ángel Díaz</a>
+  <a href="#" class="nav-logo">
+    <img src="logo_header.png" alt="Juan Ángel Díaz Psicólogo">
+  </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#sobre">Sobre mí</a></li>
     <li><a href="#servicios">Servicios</a></li>
