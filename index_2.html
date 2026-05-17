@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juan Ángel Díaz Bermejo | Psicólogo</title>
+<meta name="description" content="Psicólogo en Alicante. Terapia individual, de pareja, ansiedad y bienestar emocional. Atención presencial y online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #4a7c59;
+    --verde-claro: #e8f0ea;
+    --verde-medio: #c5d9c8;
+    --beige: #f5f0e8;
+    --beige-oscuro: #e8e0d0;
+    --azul: #5b8fa8;
+    --azul-claro: #e8f2f7;
+    --texto: #2c2c2a;
+    --texto-suave: #5f5e5a;
+    --blanco: #fafaf8;
+    --radio: 16px;
+    --radio-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--blanco);
+    color: var(--texto);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--beige-oscuro);
+    padding: 0 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--texto);
+    text-decoration: none;
+    letter-spacing: -0.3px;
+  }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--texto-suave);
+    font-size: 14px; font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--verde); }
+  .nav-cta {
+    background: var(--verde); color: white !important;
+    padding: 8px 18px; border-radius: 40px;
+    font-size: 13px !important; font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: #3a6447 !important; color: white !important; }
+  .menu-toggle {
+    display: none; background: none; border: none;
+    cursor: pointer; flex-direction: column; gap: 5px;
+  }
+  .menu-toggle span {
+    display: block; width: 22px; height: 2px;
+    background: var(--texto); border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--beige);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 100px 1.5rem 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, var(--verde-medio) 0%, transparent 70%);
+    opacity: 0.4;
+    border-radius: 50%;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: white; border: 1px solid var(--verde-medio);
+    border-radius: 40px; padding: 6px 14px;
+    font-size: 12px; color: var(--verde);
+    font-weight: 500; letter-spacing: 0.3px;
+    margin-bottom: 2rem; width: fit-content;
+  }
+  .hero-badge::before {
+    content: ''; width: 7px; height: 7px;
+    background: var(--verde); border-radius: 50%;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.2rem, 7vw, 4rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    color: var(--texto);
+    max-width: 700px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--verde);
+  }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--texto-suave);
+    max-width: 540px; line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--verde); color: white;
+    padding: 14px 28px; border-radius: 40px;
+    text-decoration: none; font-size: 15px; font-weight: 500;
+    transition: all 0.2s; border: 2px solid var(--verde);
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #3a6447; border-color: #3a6447; }
+  .btn-secondary {
+    background: transparent; color: var(--texto);
+    padding: 14px 28px; border-radius: 40px;
+    text-decoration: none; font-size: 15px; font-weight: 400;
+    transition: all 0.2s; border: 2px solid var(--beige-oscuro);
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--verde); color: var(--verde); }
+
+  /* SECCIONES GENERALES */
+  section { padding: 80px 1.5rem; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-tag {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--verde); font-weight: 500; margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 300; line-height: 1.2;
+    letter-spacing: -0.5px; margin-bottom: 1.5rem;
+    color: var(--texto);
+  }
+
+  /* AYUDA */
+  .ayuda { background: white; }
+  .ayuda-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1rem; margin-top: 2.5rem;
+  }
+  .ayuda-card {
+    background: var(--beige);
+    border-radius: var(--radio);
+    padding: 1.5rem 1.25rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .ayuda-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(74,124,89,0.12); }
+  .ayuda-img {
+    width: 100%; height: 140px; border-radius: 10px;
+    overflow: hidden; margin-bottom: 1rem;
+  }
+  .ayuda-img img { width: 100%; height: 100%; object-fit: cover; }
+  .ayuda-card h3 {
+    font-size: 15px; font-weight: 500;
+    color: var(--texto); margin-bottom: 0.4rem;
+  }
+  .ayuda-card p {
+    font-size: 13px; color: var(--texto-suave); line-height: 1.6;
+  }
+
+  /* SOBRE MÍ */
+  .sobre { background: var(--beige); }
+  .sobre-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: center;
+  }
+  .sobre-img-placeholder {
+    aspect-ratio: 3/4;
+    background: var(--verde-claro);
+    border-radius: var(--radio);
+    display: flex; align-items: center; justify-content: center;
+    border: 2px dashed var(--verde-medio);
+    position: relative; overflow: hidden;
+  }
+  .sobre-img-placeholder::after {
+    content: 'Tu foto aquí';
+    font-size: 13px; color: var(--verde);
+    font-weight: 500; letter-spacing: 0.3px;
+  }
+  .sobre-texto p {
+    color: var(--texto-suave); margin-bottom: 1.25rem;
+    font-size: 1rem; line-height: 1.8;
+  }
+  .sobre-texto p strong { color: var(--texto); font-weight: 500; }
+  .sobre-cita {
+    background: white; border-left: 3px solid var(--verde);
+    padding: 1.25rem 1.5rem; border-radius: 0 var(--radio-sm) var(--radio-sm) 0;
+    margin: 1.5rem 0;
+    font-family: 'Fraunces', serif;
+    font-style: italic; font-size: 1.05rem;
+    color: var(--texto); line-height: 1.6;
+  }
+
+  /* SERVICIOS */
+  .servicios { background: white; }
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem; margin-top: 2.5rem;
+  }
+  .servicio-card {
+    border: 1px solid var(--beige-oscuro);
+    border-radius: var(--radio);
+    padding: 1.75rem 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+    background: var(--blanco);
+  }
+  .servicio-card:hover { border-color: var(--verde); transform: translateY(-2px); }
+  .servicio-card h3 {
+    font-size: 17px; font-weight: 500;
+    color: var(--texto); margin-bottom: 0.6rem;
+    font-family: 'Fraunces', serif; font-weight: 400;
+  }
+  .servicio-card .para-quien {
+    font-size: 12px; color: var(--verde); font-weight: 500;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .servicio-card p {
+    font-size: 14px; color: var(--texto-suave); line-height: 1.7;
+  }
+  .online-badge {
+    display: inline-block;
+    background: var(--azul-claro); color: var(--azul);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.3px;
+    padding: 3px 10px; border-radius: 20px; margin-top: 0.75rem;
+  }
+
+  /* BLOG */
+  .blog { background: var(--beige); }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem; margin-top: 2.5rem;
+  }
+  .blog-card {
+    background: white; border-radius: var(--radio);
+    padding: 1.5rem; transition: transform 0.2s;
+    text-decoration: none; color: inherit; display: block;
+  }
+  .blog-card:hover { transform: translateY(-3px); }
+  .blog-img {
+    width: 100%; height: 160px; border-radius: 10px;
+    overflow: hidden; margin-bottom: 1rem;
+  }
+  .blog-img img { width: 100%; height: 100%; object-fit: cover; }
+  .blog-cat {
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--verde); font-weight: 500; margin-bottom: 0.75rem;
+  }
+  .blog-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 18px; font-weight: 400;
+    line-height: 1.3; color: var(--texto);
+    margin-bottom: 0.75rem;
+  }
+  .blog-card p {
+    font-size: 13px; color: var(--texto-suave); line-height: 1.6;
+  }
+  .blog-card .leer {
+    display: inline-block; margin-top: 1rem;
+    font-size: 13px; color: var(--verde); font-weight: 500;
+  }
+
+  /* CONTACTO */
+  .contacto { background: white; }
+  .contacto-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: start;
+  }
+  .contacto-info h2 { margin-bottom: 1rem; }
+  .contacto-info p {
+    color: var(--texto-suave); margin-bottom: 2rem; line-height: 1.8;
+  }
+  .contacto-datos { display: flex; flex-direction: column; gap: 1rem; }
+  .contacto-dato {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 14px; color: var(--texto-suave);
+  }
+  .contacto-dato-icon {
+    width: 38px; height: 38px; background: var(--verde-claro);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .form-group { margin-bottom: 1.25rem; }
+  .form-group label {
+    display: block; font-size: 13px; font-weight: 500;
+    color: var(--texto); margin-bottom: 0.4rem;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%; padding: 12px 14px;
+    border: 1.5px solid var(--beige-oscuro);
+    border-radius: var(--radio-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--texto);
+    background: var(--blanco);
+    transition: border-color 0.2s; outline: none;
+    -webkit-appearance: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-color: var(--verde); }
+  .form-group textarea { min-height: 110px; resize: vertical; }
+  .form-submit {
+    width: 100%; padding: 14px;
+    background: var(--verde); color: white; border: none;
+    border-radius: 40px; font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 500; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .form-submit:hover { background: #3a6447; }
+
+  /* CHAT FLOTANTE */
+  .chat-btn {
+    position: fixed; bottom: 24px; right: 24px; z-index: 200;
+    background: var(--verde); color: white;
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; box-shadow: 0 4px 20px rgba(74,124,89,0.35);
+    text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+    border: 3px solid white;
+  }
+  .chat-btn:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(74,124,89,0.45); }
+  .chat-tooltip {
+    position: fixed; bottom: 30px; right: 90px; z-index: 200;
+    background: var(--texto); color: white;
+    font-size: 13px; padding: 8px 14px; border-radius: 40px;
+    white-space: nowrap; pointer-events: none;
+    opacity: 0; transform: translateX(8px);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .chat-btn:hover ~ .chat-tooltip,
+  .chat-btn-wrap:hover .chat-tooltip { opacity: 1; transform: translateX(0); }
+  .chat-btn-wrap { position: fixed; bottom: 24px; right: 24px; z-index: 200; }
+
+  /* FOOTER */
+  footer {
+    background: var(--texto); color: rgba(255,255,255,0.6);
+    padding: 2.5rem 1.5rem; text-align: center;
+    font-size: 13px; line-height: 1.8;
+  }
+  footer strong { color: white; font-weight: 500; }
+  footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  footer a:hover { color: var(--verde-medio); }
+
+  /* MOBILE */
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: fixed; top: 60px; left: 0; right: 0;
+      background: var(--blanco); padding: 1rem 1.5rem 1.5rem;
+      border-bottom: 1px solid var(--beige-oscuro);
+      gap: 1rem; z-index: 99;
+    }
+    .nav-links.open a { font-size: 16px; }
+    .menu-toggle { display: flex; }
+    .sobre-inner { grid-template-columns: 1fr; }
+    .sobre-img-placeholder { aspect-ratio: 4/3; max-height: 260px; }
+    .contacto-inner { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.2rem; }
+    section { padding: 60px 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><img src="logo_header.png" alt="Juan Ángel Díaz Psicólogo" style="height:44px; width:auto;"></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#sobre">Sobre mí</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#acoso">Acoso escolar</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contacto" class="nav-cta">Pedir cita</a></li>
+  </ul>
+  <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">Disponible presencial y online · Alicante</div>
+    <h1>No siempre puedes<br>con todo… y no<br><em>pasa nada.</em></h1>
+    <p class="hero-sub">
+      Soy psicólogo y acompaño a personas que están pasando por momentos difíciles a entender lo que les ocurre y encontrar herramientas reales para estar mejor.
+    </p>
+    <p style="font-size: 0.9rem; color: var(--texto-suave); margin-bottom: 2rem; font-style: italic;">
+      Trabajo con personas de toda España. Si no estás en Alicante, nos vemos por videollamada — mismo resultado, sin desplazamiento.
+    </p>
+    <div class="hero-btns">
+      <a href="#contacto" class="btn-primary">Pedir cita</a>
+      <a href="https://wa.me/34691537040" class="btn-secondary">Escríbeme</a>
+    </div>
+  </div>
+</section>
+
+<!-- AYUDA -->
+<section class="ayuda">
+  <div class="container">
+    <p class="section-tag">En qué puedo ayudarte</p>
+    <h2 class="section-title">A veces el problema<br>no es lo que parece</h2>
+    <div class="ayuda-grid">
+      <div class="ayuda-card">
+        <div class="ayuda-img"><img src="https://images.unsplash.com/photo-1474631245212-32dc3c8310c6?w=400&q=80" alt="Ansiedad"></div>
+        <h3>Ansiedad y estrés</h3>
+        <p>Cuando el cuerpo y la mente van por libre y no sabes cómo parar.</p>
+      </div>
+      <div class="ayuda-card">
+        <div class="ayuda-img"><img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&q=80" alt="Pareja"></div>
+        <h3>Pareja y relaciones</h3>
+        <p>Comunicación rota, distancia emocional, o decisiones que no sabes tomar.</p>
+      </div>
+      <div class="ayuda-card">
+        <div class="ayuda-img"><img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=400&q=80" alt="Autoestima"></div>
+        <h3>Autoestima</h3>
+        <p>Cuando la voz que más te critica eres tú mismo y eso empieza a pesar.</p>
+      </div>
+      <div class="ayuda-card">
+        <div class="ayuda-img"><img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=400&q=80" alt="Bloqueo emocional"></div>
+        <h3>Bloqueos emocionales</h3>
+        <p>Sabes lo que quieres pero algo te impide avanzar. Vamos a verlo juntos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section class="sobre" id="sobre">
+  <div class="container">
+    <div class="sobre-inner">
+      <div class="sobre-img-placeholder" style="border:none; background: var(--verde-claro); overflow:hidden;">
+        <img src="foto-juanangel_1.jpg" alt="Juan Ángel Díaz Psicólogo" style="width:100%;height:100%;object-fit:cover;object-position: center top;border-radius:16px;">
+      </div>
+      <div class="sobre-texto">
+        <p class="section-tag">Sobre mí</p>
+        <h2 class="section-title">Psicólogo con los<br>pies en el suelo</h2>
+        <div class="sobre-cita">
+          "No creo en soluciones mágicas, pero sí en procesos que ayudan de verdad cuando se hacen bien."
+        </div>
+        <p>
+          Llevo años trabajando en <strong>servicios sociales</strong>, acompañando a personas en situaciones complejas: salud mental grave, crisis vitales, procesos de recuperación. Eso me ha enseñado a escuchar sin juzgar y a ser directo cuando hace falta.
+        </p>
+        <p>
+          También tengo consulta privada, donde trabajo con adultos que quieren entender mejor lo que les pasa y construir una vida más llevable. <strong>No hace falta estar en crisis para venir.</strong>
+        </p>
+        <p>
+          Aquí no te voy a juzgar, ni a darte respuestas prefabricadas. Vas a poder hablar de lo que te cuesta, sin filtros.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="servicios" id="servicios">
+  <div class="container">
+    <p class="section-tag">Servicios</p>
+    <h2 class="section-title">¿Qué trabajamos?</h2>
+    <div class="servicios-grid">
+      <div class="servicio-card">
+        <p class="para-quien">Individual</p>
+        <h3>Terapia individual</h3>
+        <p>Un espacio tuyo. Para entender lo que te pasa, sin prisa y sin juicios. Trabajo desde un enfoque práctico y adaptado a ti.</p>
+      </div>
+      <div class="servicio-card">
+        <p class="para-quien">Pareja</p>
+        <h3>Terapia de pareja</h3>
+        <p>Discutir no es el problema. El problema es cuando ya no sabéis cómo hablar. Trabajamos la comunicación y lo que hay debajo.</p>
+      </div>
+      <div class="servicio-card">
+        <p class="para-quien">Ansiedad · Fobias</p>
+        <h3>Ansiedad y fobias</h3>
+        <p>Aprender a entender tu ansiedad es el primer paso para que deje de mandarte. Herramientas reales, no solo técnicas de respiración.</p>
+      </div>
+      <div class="servicio-card">
+        <p class="para-quien">Identidad · Carácter</p>
+        <h3>Trastornos de personalidad</h3>
+        <p>Para quienes sienten que sus emociones o reacciones les desbordan. Trabajo especializado y sin etiquetas innecesarias.</p>
+      </div>
+      <div class="servicio-card">
+        <p class="para-quien">Intimidad · Identidad</p>
+        <h3>Sexualidad</h3>
+        <p>Dudas, bloqueos o dificultades en tu vida sexual. Un espacio seguro para hablarlo sin tabúes.</p>
+      </div>
+      <div class="servicio-card">
+        <p class="para-quien">Desde cualquier lugar</p>
+        <h3>Atención online</h3>
+        <p>Todo lo anterior, en formato videollamada. La misma calidad, más comodidad. Ideal si tienes poco tiempo o vives lejos de Alicante.</p>
+        <span class="online-badge">Disponible online</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMACIÓN Y CHARLAS -->
+<section style="background: var(--beige); padding: 80px 1.5rem;">
+  <div class="container">
+    <p class="section-tag">Formación</p>
+    <h2 class="section-title">Más allá de la consulta</h2>
+    <p style="color: var(--texto-suave); max-width: 540px; margin-bottom: 3rem; font-size: 1.05rem; line-height: 1.8;">
+      También trabajo con empresas y centros educativos que quieren cuidar de las personas que los forman. Charlas prácticas, sin teoría vacía.
+    </p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+
+      <div style="background: white; border-radius: 16px; padding: 2rem 1.5rem; border-top: 3px solid var(--verde);">
+        <div style="font-size: 13px; color: var(--verde); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1rem;">Para empresas</div>
+        <h3 style="font-family: 'Fraunces', serif; font-size: 20px; font-weight: 400; margin-bottom: 1rem;">Bienestar en el trabajo</h3>
+        <p style="font-size: 14px; color: var(--texto-suave); line-height: 1.7; margin-bottom: 1.25rem;">
+          Charlas y talleres sobre gestión del estrés, prevención del burnout y comunicación en equipos. Formación práctica para mandos intermedios y equipos que quieren rendir mejor sin pagarlo con su salud.
+        </p>
+        <ul style="font-size: 14px; color: var(--texto-suave); line-height: 2; padding-left: 1.2rem;">
+          <li>Gestión del estrés y burnout</li>
+          <li>Comunicación y bienestar en equipos</li>
+          <li>Formación para mandos intermedios</li>
+          <li>Talleres de inteligencia emocional</li>
+        </ul>
+      </div>
+
+      <div style="background: white; border-radius: 16px; padding: 2rem 1.5rem; border-top: 3px solid var(--azul);">
+        <div style="font-size: 13px; color: var(--azul); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1rem;">Para centros educativos</div>
+        <h3 style="font-family: 'Fraunces', serif; font-size: 20px; font-weight: 400; margin-bottom: 1rem;">Psicología en el aula</h3>
+        <p style="font-size: 14px; color: var(--texto-suave); line-height: 1.7; margin-bottom: 1.25rem;">
+          Charlas para padres, talleres para alumnos y formación para equipos docentes. Herramientas reales para acompañar mejor a los jóvenes en su desarrollo emocional y académico.
+        </p>
+        <ul style="font-size: 14px; color: var(--texto-suave); line-height: 2; padding-left: 1.2rem;">
+          <li>Charlas para padres sobre adolescencia</li>
+          <li>Talleres de habilidades sociales para alumnos</li>
+          <li>Crianza, límites y salud mental</li>
+          <li>Formación para equipos docentes</li>
+        </ul>
+      </div>
+
+    </div>
+    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--verde-claro); border-radius: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+      <p style="font-size: 15px; color: var(--texto); font-weight: 500;">¿Tu empresa o centro educativo necesita formación?</p>
+      <a href="#contacto" class="btn-primary" style="font-size: 14px; padding: 12px 24px;">Hablamos</a>
+    </div>
+  </div>
+</section>
+
+<!-- ACOSO ESCOLAR -->
+<section style="background: white; padding: 80px 1.5rem;" id="acoso">
+  <div class="container">
+    <p class="section-tag">Acoso escolar</p>
+    <h2 class="section-title">Cuando el colegio<br>deja de ser un lugar seguro</h2>
+    <p style="color: var(--texto-suave); max-width: 580px; margin-bottom: 3rem; font-size: 1.05rem; line-height: 1.8;">
+      El acoso escolar deja huella. En quien lo sufre, en su familia y en el entorno. Trabajar a tiempo marca la diferencia.
+    </p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.25rem; margin-bottom: 2.5rem;">
+
+      <div style="background: var(--beige); border-radius: 16px; padding: 1.75rem 1.5rem;">
+        <div style="font-size: 13px; color: var(--verde); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.75rem;">Para el menor</div>
+        <h3 style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 400; margin-bottom: 0.75rem;">Acompañamiento terapéutico</h3>
+        <p style="font-size: 14px; color: var(--texto-suave); line-height: 1.7;">
+          Trabajamos el miedo, la autoestima y las secuelas emocionales del acoso. Un espacio seguro donde el niño o adolescente puede expresarse sin filtros y recuperar la confianza en sí mismo.
+        </p>
+      </div>
+
+      <div style="background: var(--beige); border-radius: 16px; padding: 1.75rem 1.5rem;">
+        <div style="font-size: 13px; color: var(--azul); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.75rem;">Para los padres</div>
+        <h3 style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 400; margin-bottom: 0.75rem;">Orientación y apoyo familiar</h3>
+        <p style="font-size: 14px; color: var(--texto-suave); line-height: 1.7;">
+          Cómo detectar señales de acoso, cómo hablar con tu hijo sin que se cierre, cómo actuar ante el centro educativo. Acompañamiento para que la familia pueda ser parte de la solución.
+        </p>
+      </div>
+
+      <div style="background: var(--beige); border-radius: 16px; padding: 1.75rem 1.5rem;">
+        <div style="font-size: 13px; color: var(--texto-suave); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.75rem;">Para centros educativos</div>
+        <h3 style="font-family: 'Fraunces', serif; font-size: 18px; font-weight: 400; margin-bottom: 0.75rem;">Intervención y prevención</h3>
+        <p style="font-size: 14px; color: var(--texto-suave); line-height: 1.7;">
+          Formación para docentes, protocolos de actuación y talleres de convivencia para alumnos. Trabajamos antes de que el problema escale.
+        </p>
+      </div>
+
+    </div>
+    <div style="background: #fff8f0; border-left: 4px solid #e8a87c; border-radius: 0 12px 12px 0; padding: 1.5rem 1.75rem; max-width: 680px;">
+      <p style="font-size: 15px; color: var(--texto); line-height: 1.8;">
+        <strong>Si sospechas que tu hijo está sufriendo acoso,</strong> no esperes a tener certeza. Cuanto antes se actúa, menos huella deja. Escríbeme y hablamos sin compromiso.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="blog" id="blog">
+  <div class="container">
+    <p class="section-tag">Blog</p>
+    <h2 class="section-title">Cosas que igual<br>te vienen bien leer</h2>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-img"><img src="https://images.unsplash.com/photo-1541199249251-f713e6145474?w=600&q=80" alt="Ansiedad"></div>
+        <p class="blog-cat">Ansiedad</p>
+        <h3>Por qué tu ansiedad no se va aunque lo estés intentando todo</h3>
+        <p>Hay algo que nadie te cuenta sobre la ansiedad: luchar contra ella la alimenta. Te explico por qué y qué funciona de verdad.</p>
+        <div style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--beige-oscuro);">
+          <p style="font-size: 13px; color: var(--texto); line-height: 1.8;">
+            La ansiedad no es tu enemiga. Es una señal. El problema es cuando esa señal no para, cuando se convierte en ruido de fondo que lo tiñe todo.<br><br>
+            Lo primero que hacemos cuando sentimos ansiedad es intentar eliminarla. Respiramos, nos distraemos, evitamos lo que nos la provoca. Y funciona... a corto plazo. Pero a largo plazo, cada vez que evitamos algo, le estamos diciendo a nuestro cerebro que eso era peligroso. Y el miedo crece.<br><br>
+            Lo que funciona es diferente: aprender a estar con la incomodidad sin huir de ella. No es masoquismo, es entrenamiento. El cerebro aprende que puede tolerar lo que siente, y poco a poco la señal pierde fuerza.<br><br>
+            Si llevas tiempo intentando que tu ansiedad desaparezca y no lo consigues, quizás es hora de cambiar el enfoque.
+          </p>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img"><img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&q=80" alt="Pareja"></div>
+        <p class="blog-cat">Pareja</p>
+        <h3>Discutir en pareja no es el problema: esto sí lo es</h3>
+        <p>Las parejas que no discuten no existen. El problema es cuando las discusiones no llevan a ningún sitio.</p>
+        <div style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--beige-oscuro);">
+          <p style="font-size: 13px; color: var(--texto); line-height: 1.8;">
+            Discutir es normal. Todas las parejas lo hacen. Lo que diferencia a las parejas que funcionan de las que no, no es la ausencia de conflicto, sino cómo lo gestionan.<br><br>
+            El problema real no es la discusión en sí, sino el patrón que se instala: el desprecio, la defensividad, el silencio que dura días, la sensación de que nunca se resuelve nada de verdad.<br><br>
+            Cuando una pareja llega a consulta, casi nunca el motivo es lo que dicen que es. El motivo suele ser que llevan años hablando sin escucharse, acumulando pequeñas heridas que nadie ha nombrado.<br><br>
+            La terapia de pareja no sirve para que dejéis de discutir. Sirve para que cuando discutáis, os entendáis.
+          </p>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Acoso escolar"></div>
+        <p class="blog-cat">Acoso escolar</p>
+        <h3>Mi hijo no quiere ir al colegio: cuándo preocuparse de verdad</h3>
+        <p>No siempre es un capricho. A veces hay algo más detrás de esa resistencia que merece atención.</p>
+        <div style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--beige-oscuro);">
+          <p style="font-size: 13px; color: var(--texto); line-height: 1.8;">
+            Todos los niños tienen días que no quieren ir al colegio. Eso es normal. Lo que no es normal es que esa resistencia sea constante, que venga acompañada de dolor de barriga por las mañanas, de cambios de humor, de un niño que de repente ya no habla de sus amigos.<br><br>
+            El acoso escolar rara vez se cuenta directamente. Los niños callan por miedo, por vergüenza, porque creen que no les van a creer o que va a empeorar si lo dicen.<br><br>
+            Señales a las que prestar atención: evitación del cole sin motivo claro, cambios repentinos de carácter, no querer hablar de lo que pasa en clase, llegar a casa con objetos rotos o perdidos, pesadillas o regresión en hábitos.<br><br>
+            Si algo te preocupa, confía en tu instinto. Mejor explorar y que no sea nada, que esperar y que se consolide.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section style="background: var(--azul-claro); padding: 80px 1.5rem;">
+  <div class="container">
+    <p class="section-tag">El proceso</p>
+    <h2 class="section-title">¿Cómo es dar el primer paso?</h2>
+    <p style="color: var(--texto-suave); max-width: 540px; margin-bottom: 3rem; font-size: 1.05rem; line-height: 1.8;">
+      Sé que contactar con un psicólogo puede dar un poco de vértigo. Por eso el proceso es sencillo y sin compromisos.
+    </p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;">
+      <div style="background: white; border-radius: 16px; padding: 2rem 1.5rem; position: relative;">
+        <div style="font-family: 'Fraunces', serif; font-size: 3rem; color: var(--verde-medio); font-weight: 300; line-height: 1; margin-bottom: 1rem;">01</div>
+        <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 0.5rem;">Escríbeme</h3>
+        <p style="font-size: 14px; color: var(--texto-suave); line-height: 1.7;">Por el formulario o por WhatsApp. Cuéntame brevemente qué te pasa. Sin presión, sin compromisos.</p>
+      </div>
+      <div style="background: white; border-radius: 16px; padding: 2rem 1.5rem;">
+        <div style="font-family: 'Fraunces', serif; font-size: 3rem; color: var(--verde-medio); font-weight: 300; line-height: 1; margin-bottom: 1rem;">02</div>
+        <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 0.5rem;">Hablamos</h3>
+        <p style="font-size: 14px; color: var(--texto-suave); line-height: 1.7;">Te respondo para conocer tu situación y ver si puedo ayudarte. Acordamos día, hora y formato — presencial u online.</p>
+      </div>
+      <div style="background: white; border-radius: 16px; padding: 2rem 1.5rem;">
+        <div style="font-family: 'Fraunces', serif; font-size: 3rem; color: var(--verde-medio); font-weight: 300; line-height: 1; margin-bottom: 1rem;">03</div>
+        <h3 style="font-size: 17px; font-weight: 500; margin-bottom: 0.5rem;">Primera sesión</h3>
+        <p style="font-size: 14px; color: var(--texto-suave); line-height: 1.7;">Nos conocemos, me cuentas lo que necesites y vemos juntos cómo seguir. Sin prisas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contacto" id="contacto">
+  <div class="container">
+    <div class="contacto-inner">
+      <div class="contacto-info">
+        <p class="section-tag">Contacto</p>
+        <h2 class="section-title">Empezamos<br>cuando quieras</h2>
+        <p>Sin compromiso. Puedes escribirme para preguntarme lo que necesites antes de decidir nada.</p>
+        <div class="contacto-datos">
+          <div class="contacto-dato">
+            <div class="contacto-dato-icon" style="font-size:13px;font-weight:600;color:var(--verde);">UBI</div>
+            <span>Alicante, España · También online</span>
+          </div>
+          <div class="contacto-dato">
+            <div class="contacto-dato-icon" style="font-size:11px;font-weight:600;color:var(--verde);">EMAIL</div>
+            <span>juanangeldiazbermejo@gmail.com</span>
+          </div>
+          <div class="contacto-dato">
+            <div class="contacto-dato-icon" style="font-size:11px;font-weight:600;color:var(--verde);">TEL</div>
+            <span>+34 691 537 040</span>
+          </div>
+          <div class="contacto-dato">
+            <div class="contacto-dato-icon" style="font-size:11px;font-weight:600;color:var(--verde);">IG</div>
+            <a href="https://instagram.com/juanangeldiazpsicologo" target="_blank" style="color:inherit;text-decoration:none;">@juanangeldiazpsicologo</a>
+          </div>
+        </div>
+      </div>
+      <form action="https://formspree.io/f/mlgzekdo" method="POST">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="motivo">¿Sobre qué te gustaría hablar?</label>
+          <select id="motivo" name="motivo">
+            <option value="">Elige un tema</option>
+            <option>Ansiedad o estrés</option>
+            <option>Pareja</option>
+            <option>Autoestima</option>
+            <option>Bloqueo emocional</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" placeholder="Cuéntame brevemente lo que te pasa o lo que necesitas..."></textarea>
+        </div>
+        <button class="form-submit" type="submit">Enviar mensaje</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Juan Ángel Díaz Bermejo</strong> · Psicólogo</p>
+  <p style="margin-top:6px;">Nº Col. CV 10299 · <a href="mailto:juanangeldiazbermejo@gmail.com">juanangeldiazbermejo@gmail.com</a></p>
+  <p style="margin-top:6px; font-size:12px;">© 2025 · Todos los derechos reservados</p>
+</footer>
+
+<!-- WHATSAPP FLOTANTE -->
+<div class="chat-btn-wrap">
+  <a href="https://wa.me/34691537040" class="chat-btn" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">💬</a>
+  <div class="chat-tooltip">¿En qué puedo ayudarte?</div>
+</div>
+
+</body>
+</html>
