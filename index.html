@@ -5,6 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Juan Ángel Díaz Bermejo | Psicólogo</title>
 <meta name="description" content="Psicólogo en Alicante. Terapia individual, de pareja, ansiedad y bienestar emocional. Atención presencial y online.">
+<meta property="og:title" content="Juan Ángel Díaz Bermejo | Psicólogo en Alicante">
+<meta property="og:description" content="Psicólogo en Alicante. Terapia individual, de pareja, ansiedad y bienestar emocional. Atención presencial y online.">
+<meta property="og:url" content="https://www.juanangeldiazpsicologo.es">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.juanangeldiazpsicologo.es/foto-juanangel_1.jpg">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["LocalBusiness", "MedicalBusiness"],
+      "@id": "https://www.juanangeldiazpsicologo.es/#business",
+      "name": "Juan Ángel Díaz Bermejo – Psicólogo",
+      "description": "Psicólogo en Alicante especializado en terapia individual, de pareja, ansiedad, trastornos de personalidad y sexualidad. Atención presencial y online.",
+      "url": "https://www.juanangeldiazpsicologo.es",
+      "telephone": "+34691537040",
+      "email": "juanangeldiazbermejo@gmail.com",
+      "image": "https://www.juanangeldiazpsicologo.es/foto-juanangel_1.jpg",
+      "priceRange": "€€",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Alicante",
+        "addressRegion": "Comunitat Valenciana",
+        "addressCountry": "ES"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 38.3452,
+        "longitude": -0.4815
+      },
+      "sameAs": ["https://www.instagram.com/juanangeldiazpsicologo"]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.juanangeldiazpsicologo.es/#person",
+      "name": "Juan Ángel Díaz Bermejo",
+      "jobTitle": "Psicólogo",
+      "url": "https://www.juanangeldiazpsicologo.es",
+      "telephone": "+34691537040",
+      "email": "juanangeldiazbermejo@gmail.com",
+      "image": "https://www.juanangeldiazpsicologo.es/foto-juanangel_1.jpg",
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "name": "Colegiado CV 10299"
+      },
+      "worksFor": {"@id": "https://www.juanangeldiazpsicologo.es/#business"}
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -124,6 +176,16 @@
     margin-bottom: 2.5rem;
   }
   .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-inner {
+    display: grid; grid-template-columns: 1fr 320px;
+    gap: 4rem; align-items: center;
+  }
+  .hero-foto { display: flex; justify-content: center; align-items: center; }
+  .hero-foto img {
+    width: 280px; height: 280px;
+    border-radius: 50%; object-fit: cover; object-position: center 5%;
+    box-shadow: 0 0 0 6px var(--verde-claro), 0 0 0 14px var(--verde-medio), 0 28px 70px rgba(74,124,89,0.22);
+  }
   .btn-primary {
     background: var(--verde); color: white;
     padding: 14px 28px; border-radius: 40px;
@@ -154,6 +216,24 @@
     font-weight: 300; line-height: 1.2;
     letter-spacing: -0.5px; margin-bottom: 1.5rem;
     color: var(--texto);
+  }
+
+  /* STATS */
+  .stats { background: var(--verde); padding: 36px 1.5rem; }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.5rem;
+  }
+  .stat-item { text-align: center; padding: 1.25rem 1rem; }
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2.4rem; font-weight: 300;
+    color: white; line-height: 1; margin-bottom: 0.4rem;
+  }
+  .stat-label {
+    font-size: 11px; color: rgba(255,255,255,0.72);
+    letter-spacing: 0.8px; text-transform: uppercase;
   }
 
   /* AYUDA */
@@ -287,9 +367,54 @@
     display: inline-block; margin-top: 1rem;
     font-size: 13px; color: var(--verde); font-weight: 500;
   }
+  .blog-expand {
+    display: none;
+    margin-top: 1.25rem; padding-top: 1.25rem;
+    border-top: 1px solid var(--beige-oscuro);
+  }
+  .blog-expand.open { display: block; animation: fadeIn 0.3s ease; }
+  .blog-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    margin-top: 0.75rem; font-size: 13px;
+    color: var(--verde); font-weight: 500;
+    background: none; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; padding: 0;
+    transition: color 0.2s;
+  }
+  .blog-toggle:hover { color: #3a6447; }
+
+  /* FAQ */
+  .faq { background: white; }
+  .faq-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  .faq-item {
+    background: var(--blanco); border-radius: var(--radio);
+    overflow: hidden; border: 1px solid var(--beige-oscuro);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .faq-item.open { border-color: var(--verde); box-shadow: 0 4px 16px rgba(74,124,89,0.1); }
+  .faq-btn {
+    width: 100%; text-align: left; background: none; border: none;
+    cursor: pointer; padding: 1.2rem 1.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 500; color: var(--texto);
+  }
+  .faq-icon {
+    width: 22px; height: 22px; flex-shrink: 0;
+    background: var(--verde-claro); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; line-height: 1; color: var(--verde);
+    transition: transform 0.3s, background 0.2s;
+    margin-left: 1rem;
+  }
+  .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--verde); color: white; }
+  .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .faq-body-inner { padding: 0 1.5rem 1.25rem; }
+  .faq-item.open .faq-body { max-height: 400px; }
+  .faq-body p { font-size: 14px; color: var(--texto-suave); line-height: 1.8; }
 
   /* CONTACTO */
-  .contacto { background: white; }
+  .contacto { background: var(--beige); }
   .contacto-inner {
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 3rem; align-items: start;
@@ -371,6 +496,19 @@
   footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
   footer a:hover { color: var(--verde-medio); }
 
+  /* ANIMACIONES */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .js-ready .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
+  .js-ready .reveal-delay-1 { transition-delay: 0.12s; }
+  .js-ready .reveal-delay-2 { transition-delay: 0.24s; }
+  .js-ready .reveal-delay-3 { transition-delay: 0.36s; }
+
   /* MOBILE */
   @media (max-width: 700px) {
     .nav-links { display: none; }
@@ -387,8 +525,12 @@
     .sobre-img-placeholder { aspect-ratio: 4/3; max-height: 260px; }
     .contacto-inner { grid-template-columns: 1fr; }
     .hero h1 { font-size: 2.2rem; }
+    .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-foto { display: none; }
     section { padding: 60px 1.25rem; }
     .nav-logo img { height: 42px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .faq-btn { font-size: 14px; padding: 1rem 1.25rem; }
   }
 </style>
 </head>
@@ -414,17 +556,48 @@
 <!-- HERO -->
 <section class="hero">
   <div class="container">
-    <div class="hero-badge">Disponible presencial y online · Alicante</div>
-    <h1>No siempre puedes<br>con todo… y no<br><em>pasa nada.</em></h1>
-    <p class="hero-sub">
-      Soy psicólogo y acompaño a personas que están pasando por momentos difíciles a entender lo que les ocurre y encontrar herramientas reales para estar mejor.
-    </p>
-    <p style="font-size: 0.9rem; color: var(--texto-suave); margin-bottom: 2rem; font-style: italic;">
-      Trabajo con personas de toda España. Si no estás en Alicante, nos vemos por videollamada — mismo resultado, sin desplazamiento.
-    </p>
-    <div class="hero-btns">
-      <a href="#contacto" class="btn-primary">Pedir cita</a>
-      <a href="https://wa.me/34691537040" class="btn-secondary">Escríbeme</a>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge">Disponible presencial y online · Alicante</div>
+        <h1>No siempre puedes<br>con todo… y no<br><em>pasa nada.</em></h1>
+        <p class="hero-sub">
+          Soy psicólogo y acompaño a personas que están pasando por momentos difíciles a entender lo que les ocurre y encontrar herramientas reales para estar mejor.
+        </p>
+        <p style="font-size: 0.9rem; color: var(--texto-suave); margin-bottom: 2rem; font-style: italic;">
+          Trabajo con personas de toda España. Si no estás en Alicante, nos vemos por videollamada — mismo resultado, sin desplazamiento.
+        </p>
+        <div class="hero-btns">
+          <a href="#contacto" class="btn-primary">Pedir cita</a>
+          <a href="https://wa.me/34691537040" class="btn-secondary">Escríbeme</a>
+        </div>
+      </div>
+      <div class="hero-foto">
+        <img src="foto-juanangel_1.jpg" alt="Juan Ángel Díaz Bermejo, Psicólogo">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Másteres especializados</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Áreas de trabajo</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Modalidades · presencial y online</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <div class="stat-num" style="font-size:1.6rem;">10299</div>
+        <div class="stat-label">Nº Colegiado · CV</div>
+      </div>
     </div>
   </div>
 </section>
@@ -622,12 +795,14 @@
     <p class="section-tag">Blog</p>
     <h2 class="section-title">Cosas que igual<br>te vienen bien leer</h2>
     <div class="blog-grid">
+
       <div class="blog-card">
         <div class="blog-img"><img src="https://images.unsplash.com/photo-1541199249251-f713e6145474?w=600&q=80" alt="Ansiedad"></div>
         <p class="blog-cat">Ansiedad</p>
         <h3>Por qué tu ansiedad no se va aunque lo estés intentando todo</h3>
         <p>Hay algo que nadie te cuenta sobre la ansiedad: luchar contra ella la alimenta. Te explico por qué y qué funciona de verdad.</p>
-        <div style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--beige-oscuro);">
+        <button class="blog-toggle">Leer más →</button>
+        <div class="blog-expand">
           <p style="font-size: 13px; color: var(--texto); line-height: 1.8;">
             La ansiedad no es tu enemiga. Es una señal. El problema es cuando esa señal no para, cuando se convierte en ruido de fondo que lo tiñe todo.<br><br>
             Lo primero que hacemos cuando sentimos ansiedad es intentar eliminarla. Respiramos, nos distraemos, evitamos lo que nos la provoca. Y funciona... a corto plazo. Pero a largo plazo, cada vez que evitamos algo, le estamos diciendo a nuestro cerebro que eso era peligroso. Y el miedo crece.<br><br>
@@ -636,12 +811,14 @@
           </p>
         </div>
       </div>
+
       <div class="blog-card">
         <div class="blog-img"><img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&q=80" alt="Pareja"></div>
         <p class="blog-cat">Pareja</p>
         <h3>Discutir en pareja no es el problema: esto sí lo es</h3>
         <p>Las parejas que no discuten no existen. El problema es cuando las discusiones no llevan a ningún sitio.</p>
-        <div style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--beige-oscuro);">
+        <button class="blog-toggle">Leer más →</button>
+        <div class="blog-expand">
           <p style="font-size: 13px; color: var(--texto); line-height: 1.8;">
             Discutir es normal. Todas las parejas lo hacen. Lo que diferencia a las parejas que funcionan de las que no, no es la ausencia de conflicto, sino cómo lo gestionan.<br><br>
             El problema real no es la discusión en sí, sino el patrón que se instala: el desprecio, la defensividad, el silencio que dura días, la sensación de que nunca se resuelve nada de verdad.<br><br>
@@ -650,12 +827,14 @@
           </p>
         </div>
       </div>
+
       <div class="blog-card">
         <div class="blog-img"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Acoso escolar"></div>
         <p class="blog-cat">Acoso escolar</p>
         <h3>Mi hijo no quiere ir al colegio: cuándo preocuparse de verdad</h3>
         <p>No siempre es un capricho. A veces hay algo más detrás de esa resistencia que merece atención.</p>
-        <div style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--beige-oscuro);">
+        <button class="blog-toggle">Leer más →</button>
+        <div class="blog-expand">
           <p style="font-size: 13px; color: var(--texto); line-height: 1.8;">
             Todos los niños tienen días que no quieren ir al colegio. Eso es normal. Lo que no es normal es que esa resistencia sea constante, que venga acompañada de dolor de barriga por las mañanas, de cambios de humor, de un niño que de repente ya no habla de sus amigos.<br><br>
             El acoso escolar rara vez se cuenta directamente. Los niños callan por miedo, por vergüenza, porque creen que no les van a creer o que va a empeorar si lo dicen.<br><br>
@@ -664,6 +843,60 @@
           </p>
         </div>
       </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <p class="section-tag">Preguntas frecuentes</p>
+    <h2 class="section-title">Lo que más me<br>suelen preguntar</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-btn">¿Cuánto dura una sesión?<span class="faq-icon">+</span></button>
+        <div class="faq-body"><div class="faq-body-inner">
+          <p>Las sesiones duran entre 50 y 60 minutos. Es el tiempo estándar en psicología clínica, suficiente para trabajar de forma profunda sin que sea agotador. La primera sesión puede alargarse un poco para conocernos y entender bien tu situación.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn">¿Cuántas sesiones voy a necesitar?<span class="faq-icon">+</span></button>
+        <div class="faq-body"><div class="faq-body-inner">
+          <p>Depende de cada persona y de lo que traigas. Hay personas que en pocas sesiones consiguen lo que buscaban; otras trabajan durante meses algo más profundo. Lo que sí te digo: no alargaremos el proceso más de lo necesario. En la primera sesión ya tendremos una idea más clara.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn">¿La terapia online funciona igual que la presencial?<span class="faq-icon">+</span></button>
+        <div class="faq-body"><div class="faq-body-inner">
+          <p>Sí. La evidencia lo respalda y mi experiencia también. La conexión terapéutica y los resultados son equivalentes. La diferencia es logística: tú decides desde dónde conectarte. Es especialmente útil si tienes poco tiempo, vives fuera de Alicante o simplemente te resulta más cómodo.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn">No sé si lo mío es para ir al psicólogo. ¿Qué hago?<span class="faq-icon">+</span></button>
+        <div class="faq-body"><div class="faq-body-inner">
+          <p>Escríbeme y cuéntame brevemente lo que te pasa. Te digo con honestidad si creo que puedo ayudarte o no. No hace falta estar en crisis para venir a terapia. A veces solo hay algo que se ha quedado atascado y merece atención.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn">¿Trabajas con menores?<span class="faq-icon">+</span></button>
+        <div class="faq-body"><div class="faq-body-inner">
+          <p>Sí, especialmente en el contexto del acoso escolar y dificultades emocionales en la infancia y adolescencia. El trabajo con menores siempre se hace con el conocimiento y la participación de la familia.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn">¿Haces terapia de pareja aunque solo venga uno?<span class="faq-icon">+</span></button>
+        <div class="faq-body"><div class="faq-body-inner">
+          <p>Depende del objetivo. Si quieres trabajar tu papel en la relación, entender dinámicas o decidir qué quieres hacer, sí. Si el objetivo es mejorar la comunicación entre los dos, lo ideal es que vengáis juntos. Cuéntame tu situación y vemos qué tiene más sentido.</p>
+        </div></div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -765,6 +998,39 @@
   <a href="https://wa.me/34691537040" class="chat-btn" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">💬</a>
   <div class="chat-tooltip">¿En qué puedo ayudarte?</div>
 </div>
+
+<script>
+document.body.classList.add('js-ready');
+
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('section:not(.hero) > .container, .reveal').forEach(el => {
+  el.classList.add('reveal');
+  revealObs.observe(el);
+});
+
+document.querySelectorAll('.faq-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+document.querySelectorAll('.blog-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expand = btn.nextElementSibling;
+    const isOpen = expand.classList.contains('open');
+    expand.classList.toggle('open');
+    btn.textContent = isOpen ? 'Leer más →' : 'Leer menos ↑';
+  });
+});
+</script>
 
 </body>
 </html>
