@@ -424,6 +424,45 @@
   .faq-item.open .faq-body { max-height: 400px; }
   .faq-body p { font-size: 14px; color: var(--texto-suave); line-height: 1.8; }
 
+  /* CIERRE CTA */
+  .cierre {
+    background: #111e16;
+    padding: 110px 1.5rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cierre::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(74,124,89,0.18) 0%, transparent 65%);
+    border-radius: 50%;
+  }
+  .cierre-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+  .cierre .section-tag { color: #a8d4b5; margin-bottom: 1.25rem; }
+  .cierre h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 300; color: white;
+    line-height: 1.12; letter-spacing: -1.5px;
+    margin-bottom: 1.5rem;
+  }
+  .cierre h2 em { font-style: italic; color: #a8d4b5; }
+  .cierre > .cierre-inner > p {
+    font-size: 1.1rem; color: rgba(255,255,255,0.62);
+    line-height: 1.8; margin-bottom: 2.5rem;
+    max-width: 500px; margin-left: auto; margin-right: auto;
+  }
+  .cierre .btn-cierre {
+    background: white; color: #1a3528;
+    padding: 16px 40px; border-radius: 40px;
+    text-decoration: none; font-size: 15px; font-weight: 500;
+    transition: all 0.2s; border: 2px solid white;
+    display: inline-block;
+  }
+  .cierre .btn-cierre:hover { background: #a8d4b5; border-color: #a8d4b5; }
+
   /* CONTACTO */
   .contacto { background: var(--beige); }
   .contacto-inner {
@@ -940,6 +979,16 @@
   </div>
 </section>
 
+<!-- CIERRE CTA -->
+<section class="cierre">
+  <div class="cierre-inner">
+    <p class="section-tag">Da el paso</p>
+    <h2>Lo más difícil<br>ya lo has <em>hecho.</em></h2>
+    <p>Llegar hasta aquí, leer esto, planteártelo.<br>El resto es mucho más fácil de lo que parece.</p>
+    <a href="#contacto" class="btn-cierre">Pedir primera cita</a>
+  </div>
+</section>
+
 <!-- CONTACTO -->
 <section class="contacto" id="contacto">
   <div class="container">
@@ -991,6 +1040,12 @@
           <label for="mensaje">Mensaje</label>
           <textarea id="mensaje" name="mensaje" placeholder="Cuéntame brevemente lo que te pasa o lo que necesitas..."></textarea>
         </div>
+        <div class="form-group" style="display:flex; align-items:flex-start; gap:10px; margin-bottom:8px;">
+          <input type="checkbox" id="rgpd" name="rgpd" required style="margin-top:4px; accent-color:var(--verde); width:16px; height:16px; flex-shrink:0;">
+          <label for="rgpd" style="font-size:13px; color:var(--texto-suave); cursor:pointer; line-height:1.5;">
+            He leído y acepto la <a href="/politica-privacidad.html" target="_blank" style="color:var(--verde);">política de privacidad</a>. Consiento el tratamiento de mis datos para atender mi consulta.
+          </label>
+        </div>
         <button class="form-submit" type="submit">Enviar mensaje</button>
       </form>
     </div>
@@ -1002,6 +1057,11 @@
   <p><strong>Juan Ángel Díaz Bermejo</strong> · Psicólogo</p>
   <p style="margin-top:6px;">Nº Col. CV 10299 · <a href="mailto:juanangeldiazbermejo@gmail.com">juanangeldiazbermejo@gmail.com</a></p>
   <p style="margin-top:6px; font-size:12px;">© 2025 · Todos los derechos reservados</p>
+  <p style="margin-top:10px; font-size:12px;">
+    <a href="/aviso-legal.html" style="color:var(--texto-suave); text-decoration:underline;">Aviso legal</a>
+    &nbsp;·&nbsp;
+    <a href="/politica-privacidad.html" style="color:var(--texto-suave); text-decoration:underline;">Política de privacidad</a>
+  </p>
 </footer>
 
 <!-- WHATSAPP FLOTANTE -->
@@ -1041,6 +1101,37 @@ document.querySelectorAll('.blog-toggle').forEach(btn => {
     btn.textContent = isOpen ? 'Leer más →' : 'Leer menos ↑';
   });
 });
+</script>
+
+<!-- BANNER COOKIES -->
+<div id="cookie-banner" style="
+  display:none; position:fixed; bottom:0; left:0; right:0; z-index:999;
+  background:#1a3528; color:rgba(255,255,255,0.9);
+  padding:18px 24px; font-size:13px; line-height:1.6;
+  display:flex; flex-wrap:wrap; align-items:center; gap:16px;
+  box-shadow:0 -4px 24px rgba(0,0,0,0.25);">
+  <p style="margin:0; flex:1; min-width:220px;">
+    Esta web usa cookies técnicas propias para el funcionamiento del formulario de contacto.
+    No usamos cookies de seguimiento ni publicidad.
+    <a href="/politica-privacidad.html" style="color:#a8d4b5; text-decoration:underline;">Más info</a>
+  </p>
+  <button id="cookie-accept" style="
+    background:white; color:#1a3528; border:none; border-radius:30px;
+    padding:9px 22px; font-size:13px; font-weight:600; cursor:pointer;
+    white-space:nowrap;">Entendido</button>
+</div>
+
+<script>
+(function(){
+  const banner = document.getElementById('cookie-banner');
+  if (!localStorage.getItem('cookies-ok')) {
+    banner.style.display = 'flex';
+  }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem('cookies-ok','1');
+    banner.style.display = 'none';
+  });
+})();
 </script>
 
 </body>
