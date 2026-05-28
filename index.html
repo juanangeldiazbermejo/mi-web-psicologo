@@ -577,6 +577,7 @@
     .hero h1 { font-size: 2.2rem; }
     .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
     .hero-foto { display: none; }
+    .hero { padding-bottom: 100px; }
     section { padding: 60px 1.25rem; }
     .nav-logo img { height: 42px; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1104,21 +1105,28 @@ document.querySelectorAll('.blog-toggle').forEach(btn => {
 </script>
 
 <!-- BANNER COOKIES -->
-<div id="cookie-banner" style="
-  display:none; position:fixed; bottom:0; left:0; right:0; z-index:999;
-  background:#1a3528; color:rgba(255,255,255,0.9);
-  padding:18px 24px; font-size:13px; line-height:1.6;
-  display:flex; flex-wrap:wrap; align-items:center; gap:16px;
-  box-shadow:0 -4px 24px rgba(0,0,0,0.25);">
-  <p style="margin:0; flex:1; min-width:220px;">
-    Esta web usa cookies técnicas propias para el funcionamiento del formulario de contacto.
-    No usamos cookies de seguimiento ni publicidad.
+<style>
+#cookie-banner {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;
+  background: #1a3528; color: rgba(255,255,255,0.9);
+  padding: 14px 20px; font-size: 13px; line-height: 1.5;
+  flex-wrap: wrap; align-items: center; gap: 12px;
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
+}
+#cookie-banner p { margin: 0; flex: 1; min-width: 180px; }
+#cookie-accept {
+  background: white; color: #1a3528; border: none; border-radius: 30px;
+  padding: 8px 20px; font-size: 13px; font-weight: 600; cursor: pointer;
+  white-space: nowrap; flex-shrink: 0;
+}
+</style>
+<div id="cookie-banner">
+  <p>
+    Esta web usa cookies técnicas para el formulario de contacto. Sin seguimiento ni publicidad.
     <a href="/politica-privacidad.html" style="color:#a8d4b5; text-decoration:underline;">Más info</a>
   </p>
-  <button id="cookie-accept" style="
-    background:white; color:#1a3528; border:none; border-radius:30px;
-    padding:9px 22px; font-size:13px; font-weight:600; cursor:pointer;
-    white-space:nowrap;">Entendido</button>
+  <button id="cookie-accept">Entendido</button>
 </div>
 
 <script>
