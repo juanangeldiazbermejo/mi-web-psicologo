@@ -8,13 +8,25 @@
 <link rel="canonical" href="https://www.juanangeldiazpsicologo.es">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%234a7c59'/><text x='50' y='68' font-size='62' text-anchor='middle' fill='white' font-family='Georgia,serif' font-weight='300'>J</text></svg>">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%234a7c59'/><text x='50' y='68' font-size='62' text-anchor='middle' fill='white' font-family='Georgia,serif' font-weight='300'>J</text></svg>">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KJZT6V2848"></script>
+<!-- Google Analytics: solo se carga tras aceptar cookies (ver banner al final) -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-KJZT6V2848');
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  function loadAnalytics() {
+    gtag('consent', 'update', { 'analytics_storage': 'granted' });
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-KJZT6V2848';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-KJZT6V2848');
+  }
 </script>
 <meta property="og:title" content="Psicólogo en Alicante | Juan Ángel Díaz Bermejo">
 <meta property="og:description" content="Psicólogo en Alicante. Terapia individual, de pareja, ansiedad y bienestar emocional. Atención presencial y online.">
@@ -126,7 +138,7 @@
       "name": "¿Cuánto cuesta una sesión de psicología?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "El precio varía según el tipo de sesión (individual, pareja, online o presencial). Te lo indico sin compromiso cuando contactes. Trabajo con tarifas acordes al mercado en Alicante y siempre sabrás el coste antes de comprometerte a nada."
+        "text": "La sesión individual presencial cuesta 60 €, la online 50 € y la terapia de pareja 70 €. Todas las sesiones duran entre 50 y 75 minutos según el formato. Sabrás el coste antes de comprometerte a nada."
       }
     },
     {
@@ -696,9 +708,10 @@
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#acoso">Acoso escolar</a></li>
     <li><a href="#blog">Blog</a></li>
+    <li><a href="#tarifas">Tarifas</a></li>
     <li><a href="#contacto" class="nav-cta">Pedir cita</a></li>
   </ul>
-  <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menú">
+  <button class="menu-toggle" onclick="const n=document.getElementById('navLinks');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))" aria-label="Menú" aria-expanded="false" aria-controls="navLinks">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -722,7 +735,7 @@
         </div>
       </div>
       <div class="hero-foto">
-        <img src="foto-juanangel_1.jpg" alt="Juan Ángel Díaz Bermejo, Psicólogo">
+        <img src="foto-juanangel_1.jpg" alt="Juan Ángel Díaz Bermejo, Psicólogo" fetchpriority="high">
       </div>
     </div>
   </div>
@@ -759,22 +772,22 @@
     <h2 class="section-title">A veces el problema<br>no es lo que parece</h2>
     <div class="ayuda-grid">
       <div class="ayuda-card">
-        <div class="ayuda-img"><img src="https://images.unsplash.com/photo-1474631245212-32dc3c8310c6?w=400&q=80" alt="Ansiedad"></div>
+        <div class="ayuda-img"><img loading="lazy" decoding="async" src="img/ansiedad.jpg" alt="Ansiedad"></div>
         <h3>Ansiedad y estrés</h3>
         <p>Cuando el cuerpo y la mente van por libre y no sabes cómo parar.</p>
       </div>
       <div class="ayuda-card">
-        <div class="ayuda-img"><img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&q=80" alt="Pareja"></div>
+        <div class="ayuda-img"><img loading="lazy" decoding="async" src="img/pareja.jpg" alt="Pareja"></div>
         <h3>Pareja y relaciones</h3>
         <p>Comunicación rota, distancia emocional, o decisiones que no sabes tomar.</p>
       </div>
       <div class="ayuda-card">
-        <div class="ayuda-img"><img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=400&q=80" alt="Autoestima"></div>
+        <div class="ayuda-img"><img loading="lazy" decoding="async" src="img/autoestima.jpg" alt="Autoestima"></div>
         <h3>Autoestima</h3>
         <p>Cuando la voz que más te critica eres tú mismo y eso empieza a pesar.</p>
       </div>
       <div class="ayuda-card">
-        <div class="ayuda-img"><img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=400&q=80" alt="Bloqueo emocional"></div>
+        <div class="ayuda-img"><img loading="lazy" decoding="async" src="img/bloqueo.jpg" alt="Bloqueo emocional"></div>
         <h3>Bloqueos emocionales</h3>
         <p>Sabes lo que quieres pero algo te impide avanzar. Vamos a verlo juntos.</p>
       </div>
@@ -787,7 +800,7 @@
   <div class="container">
     <div class="sobre-inner">
       <div style="border-radius:16px; overflow:hidden; aspect-ratio:3/4;">
-        <img src="foto-juanangel_1.jpg" alt="Juan Ángel Díaz Psicólogo" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <img src="foto-juanangel_1.jpg" alt="Juan Ángel Díaz Psicólogo" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
       <div class="sobre-texto">
         <p class="section-tag">Sobre mí</p>
@@ -947,7 +960,7 @@
     <div class="blog-grid">
 
       <div class="blog-card">
-        <div class="blog-img"><img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=600&q=80" alt="Primera sesión psicólogo"></div>
+        <div class="blog-img"><img loading="lazy" decoding="async" src="img/blog-primera-sesion.jpg" alt="Primera sesión psicólogo"></div>
         <p class="blog-cat">Terapia</p>
         <h3>Qué hace un psicólogo en la primera sesión (y qué no)</h3>
         <p>La mayoría llega con miedo y sin saber qué esperar. Aquí te cuento exactamente cómo es esa primera conversación.</p>
@@ -964,7 +977,7 @@
       </div>
 
       <div class="blog-card">
-        <div class="blog-img"><img src="https://images.unsplash.com/photo-1541199249251-f713e6145474?w=600&q=80" alt="Ansiedad o estrés"></div>
+        <div class="blog-img"><img loading="lazy" decoding="async" src="img/blog-ansiedad-estres.jpg" alt="Ansiedad o estrés"></div>
         <p class="blog-cat">Ansiedad</p>
         <h3>Ansiedad o estrés: cómo saber la diferencia</h3>
         <p>Se parecen mucho. Pero no son lo mismo, y tratarlos igual es uno de los errores más comunes.</p>
@@ -985,7 +998,7 @@
       </div>
 
       <div class="blog-card">
-        <div class="blog-img"><img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&q=80" alt="Terapia de pareja"></div>
+        <div class="blog-img"><img loading="lazy" decoding="async" src="img/blog-terapia-pareja.jpg" alt="Terapia de pareja"></div>
         <p class="blog-cat">Pareja</p>
         <h3>Señales de que tu relación necesita terapia (aunque no lo veáis claro)</h3>
         <p>Nadie llega a terapia de pareja en sus mejores momentos. La mayoría llega cuando ya llevan tiempo aguantando algo que no funciona.</p>
@@ -1004,7 +1017,7 @@
       </div>
 
       <div class="blog-card">
-        <div class="blog-img"><img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=600&q=80" alt="Pensamientos en bucle"></div>
+        <div class="blog-img"><img loading="lazy" decoding="async" src="img/blog-rumiacion.jpg" alt="Pensamientos en bucle"></div>
         <p class="blog-cat">Bienestar</p>
         <h3>Por qué no puedo dejar de darle vueltas a todo</h3>
         <p>Si alguna vez te has quedado en bucle pensando en algo que ya pasó, o anticipando todo lo que podría salir mal, sabes de qué va esto.</p>
@@ -1025,7 +1038,7 @@
       </div>
 
       <div class="blog-card">
-        <div class="blog-img"><img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=600&q=80" alt="Psicólogo online"></div>
+        <div class="blog-img"><img loading="lazy" decoding="async" src="img/blog-online.jpg" alt="Psicólogo online"></div>
         <p class="blog-cat">Terapia online</p>
         <h3>Psicólogo online: ventajas, dudas y cómo funciona</h3>
         <p>Mucha gente llega con la misma pregunta: ¿funciona igual que en persona? La respuesta corta es sí.</p>
@@ -1127,47 +1140,6 @@
         <div class="faq-body"><div class="faq-body-inner">
           <p>Sí, absolutamente. El secreto profesional es uno de los pilares de la psicología. Lo que me cuentes no sale de la consulta. La única excepción, por obligación legal, sería una situación de riesgo grave para tu vida o la de otra persona — algo que en la práctica rara vez ocurre. Puedes hablar con total libertad.</p>
         </div></div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIOS -->
-<section style="background: var(--beige); padding: 80px 1.5rem;">
-  <div class="container">
-    <p class="section-tag">Lo que dicen</p>
-    <h2 class="section-title">Personas que ya<br>dieron el paso</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2.5rem;">
-
-      <div style="background: white; border-radius: 16px; padding: 2rem; position: relative;">
-        <span style="font-size: 3rem; line-height: 1; color: var(--verde); opacity: 0.3; position: absolute; top: 1rem; left: 1.5rem; font-family: Georgia, serif;">"</span>
-        <p style="margin-top: 1.5rem; font-size: 15px; line-height: 1.7; color: var(--texto-suave);">Llevaba meses sin dormir bien y con una sensación constante de que algo iba a salir mal. En el trabajo me bloqueaba, en casa estaba irritable con todo. Cuando por fin llamé, lo primero que pensé fue «no sé ni qué le voy a contar». Pero desde la primera sesión me sentí escuchada de verdad, sin juicios. Hoy no es que no tenga malos días, los tengo, pero sé qué hacer con ellos. Eso cambia todo.</p>
-        <p style="margin-top: 1.5rem; font-size: 13px; font-weight: 500; color: var(--texto);">— Marta, 37 años · Alicante</p>
-      </div>
-
-      <div style="background: white; border-radius: 16px; padding: 2rem; position: relative;">
-        <span style="font-size: 3rem; line-height: 1; color: var(--verde); opacity: 0.3; position: absolute; top: 1rem; left: 1.5rem; font-family: Georgia, serif;">"</span>
-        <p style="margin-top: 1.5rem; font-size: 15px; line-height: 1.7; color: var(--texto-suave);">Mi pareja y yo llevábamos tiempo sin conectar de verdad. Discusiones por todo, silencios incómodos, y la sensación de que nos habíamos convertido en compañeros de piso. Lo que más me sorprendió es que Juanan no tomó partido por ninguno de los dos, y eso se agradece mucho. Fue un proceso duro, no voy a engañar a nadie, pero valió la pena. Ahora nos comunicamos diferente.</p>
-        <p style="margin-top: 1.5rem; font-size: 13px; font-weight: 500; color: var(--texto);">— Sandra, 41 años · Elche</p>
-      </div>
-
-      <div style="background: white; border-radius: 16px; padding: 2rem; position: relative;">
-        <span style="font-size: 3rem; line-height: 1; color: var(--verde); opacity: 0.3; position: absolute; top: 1rem; left: 1.5rem; font-family: Georgia, serif;">"</span>
-        <p style="margin-top: 1.5rem; font-size: 15px; line-height: 1.7; color: var(--texto-suave);">No estaba seguro de si lo mío era «suficientemente grave» para ir al psicólogo. Juanan me ayudó a entender que esa pregunta en sí ya era parte del problema. Trabajamos mucho la autoexigencia y la forma en que me hablaba a mí mismo, que era bastante destructiva. No fue de golpe, fue despacio, pero fue. Hoy me siento más en paz conmigo mismo y eso no tiene precio.</p>
-        <p style="margin-top: 1.5rem; font-size: 13px; font-weight: 500; color: var(--texto);">— Pablo, 29 años · Alicante</p>
-      </div>
-
-      <div style="background: white; border-radius: 16px; padding: 2rem; position: relative;">
-        <span style="font-size: 3rem; line-height: 1; color: var(--verde); opacity: 0.3; position: absolute; top: 1rem; left: 1.5rem; font-family: Georgia, serif;">"</span>
-        <p style="margin-top: 1.5rem; font-size: 15px; line-height: 1.7; color: var(--texto-suave);">Fui con un problema que me daba mucha vergüenza hablar, incluso con amigas cercanas. Juanan tiene una forma de tratar estos temas que hace que todo parezca menos pesado de lo que lo llevas dentro. Sin dramatismos, sin hacerte sentir rara. La mejoría no fue solo en lo que fui a consultar, sino en cómo me relaciono conmigo misma en general.</p>
-        <p style="margin-top: 1.5rem; font-size: 13px; font-weight: 500; color: var(--texto);">— Laura, 34 años · Alicante</p>
-      </div>
-
-      <div style="background: white; border-radius: 16px; padding: 2rem; position: relative;">
-        <span style="font-size: 3rem; line-height: 1; color: var(--verde); opacity: 0.3; position: absolute; top: 1rem; left: 1.5rem; font-family: Georgia, serif;">"</span>
-        <p style="margin-top: 1.5rem; font-size: 15px; line-height: 1.7; color: var(--texto-suave);">Perdí a mi madre después de una enfermedad larga y pensé que lo iba a llevar mejor de lo que lo llevé. Un compañero de trabajo me habló de Juanan. Fui sin muchas expectativas. Me ayudó a entender que el duelo no tiene un tiempo fijo ni una forma correcta, y eso solo ya fue un alivio enorme. Poco a poco volví a ser yo.</p>
-        <p style="margin-top: 1.5rem; font-size: 13px; font-weight: 500; color: var(--texto);">— Antonio, 52 años · Mutxamel</p>
       </div>
 
     </div>
@@ -1310,7 +1282,7 @@
 <footer>
   <p><strong>Juan Ángel Díaz Bermejo</strong> · Psicólogo</p>
   <p style="margin-top:6px;">Nº Col. CV 10299 · <a href="mailto:juanangeldiazbermejo@gmail.com">juanangeldiazbermejo@gmail.com</a></p>
-  <p style="margin-top:6px; font-size:12px;">© 2025 · Todos los derechos reservados</p>
+  <p style="margin-top:6px; font-size:12px;">© 2026 · Todos los derechos reservados</p>
   <p style="margin-top:10px; font-size:12px;">
     <a href="/aviso-legal.html" style="color:var(--texto-suave); text-decoration:underline;">Aviso legal</a>
     &nbsp;·&nbsp;
@@ -1320,7 +1292,7 @@
 
 <!-- WHATSAPP FLOTANTE -->
 <div class="chat-btn-wrap">
-  <a href="https://wa.me/34691537040" class="chat-btn" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">💬</a>
+  <a href="https://wa.me/34691537040" class="chat-btn" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.1-.198.05-.371-.025-.52-.074-.149-.668-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.197 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.064 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
   <div class="chat-tooltip">¿En qué puedo ayudarte?</div>
 </div>
 
@@ -1339,19 +1311,28 @@ document.querySelectorAll('section:not(.hero) > .container, .reveal').forEach(el
 });
 
 document.querySelectorAll('.faq-btn').forEach(btn => {
+  btn.setAttribute('aria-expanded', 'false');
   btn.addEventListener('click', () => {
     const item = btn.closest('.faq-item');
     const wasOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-    if (!wasOpen) item.classList.add('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-btn').setAttribute('aria-expanded', 'false');
+    });
+    if (!wasOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
   });
 });
 
 document.querySelectorAll('.blog-toggle').forEach(btn => {
+  btn.setAttribute('aria-expanded', 'false');
   btn.addEventListener('click', () => {
     const expand = btn.nextElementSibling;
     const isOpen = expand.classList.contains('open');
     expand.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(!isOpen));
     btn.textContent = isOpen ? 'Leer más →' : 'Leer menos ↑';
   });
 });
@@ -1373,23 +1354,38 @@ document.querySelectorAll('.blog-toggle').forEach(btn => {
   padding: 8px 20px; font-size: 13px; font-weight: 600; cursor: pointer;
   white-space: nowrap; flex-shrink: 0;
 }
+#cookie-reject {
+  background: transparent; color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.45); border-radius: 30px;
+  padding: 8px 20px; font-size: 13px; font-weight: 500; cursor: pointer;
+  white-space: nowrap; flex-shrink: 0;
+}
 </style>
 <div id="cookie-banner">
   <p>
-    Esta web usa cookies técnicas para el formulario de contacto. Sin seguimiento ni publicidad.
+    Esta web usa cookies de análisis (Google Analytics) para entender cómo se usa y mejorarla. Solo se activan si las aceptas.
     <a href="/politica-privacidad.html" style="color:#a8d4b5; text-decoration:underline;">Más info</a>
   </p>
-  <button id="cookie-accept">Entendido</button>
+  <button id="cookie-reject">Rechazar</button>
+  <button id="cookie-accept">Aceptar</button>
 </div>
 
 <script>
 (function(){
   const banner = document.getElementById('cookie-banner');
-  if (!localStorage.getItem('cookies-ok')) {
+  const consent = localStorage.getItem('cookies-consent');
+  if (consent === 'accepted') {
+    loadAnalytics();
+  } else if (!consent) {
     banner.style.display = 'flex';
   }
   document.getElementById('cookie-accept').addEventListener('click', function(){
-    localStorage.setItem('cookies-ok','1');
+    localStorage.setItem('cookies-consent','accepted');
+    banner.style.display = 'none';
+    loadAnalytics();
+  });
+  document.getElementById('cookie-reject').addEventListener('click', function(){
+    localStorage.setItem('cookies-consent','rejected');
     banner.style.display = 'none';
   });
 })();

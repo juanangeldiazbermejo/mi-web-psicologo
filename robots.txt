@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /politica-privacidad.html
+Disallow: /aviso-legal.html
+
+Sitemap: https://www.juanangeldiazpsicologo.es/sitemap.xml
